@@ -19,12 +19,12 @@ public class CollectionTestSuite {
     public void testOddNumbersExterminatorEmptyList() {
 
         OddNumbersExterminator exterminator = new OddNumbersExterminator();
-
+        //Given
         List<Integer> emptyList = new ArrayList<>();
-
+        //When
         List<Integer> resultList = exterminator.exterminate(emptyList);
         System.out.println("Testing empty list");
-
+        //Then
         Assert.assertEquals(emptyList, resultList);
 
         }
@@ -33,7 +33,7 @@ public class CollectionTestSuite {
     public void testOddNumbersExterminatorNormalList() {
 
         OddNumbersExterminator exterminator = new OddNumbersExterminator();
-
+        //Given
         List<Integer> normalList = new ArrayList<>();
 
         normalList.add(3);
@@ -61,9 +61,10 @@ public class CollectionTestSuite {
         evenNumbersList.add(12);
         evenNumbersList.add(14);
 
+        //When
         List<Integer> resultList = exterminator.exterminate(normalList);
         System.out.println("Testing normal list");
-
+        //Then
         Assert.assertEquals(evenNumbersList, resultList);
 
     }
