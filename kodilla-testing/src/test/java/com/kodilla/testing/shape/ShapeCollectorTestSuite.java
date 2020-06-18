@@ -7,7 +7,6 @@ import static org.junit.Assert.*;
 public class ShapeCollectorTestSuite {
 
     private static int testCounter = 0;
-    private Object Square;
 
     @BeforeClass
     public static void beforeAllTests() {
@@ -27,7 +26,6 @@ public class ShapeCollectorTestSuite {
 
     @Test
     public void testAddFigure() {
-
         //Given
         ShapeCollector shapeCollector = new ShapeCollector();
         Shape shape = new Square();
@@ -37,12 +35,10 @@ public class ShapeCollectorTestSuite {
 
         //Then
         assertEquals(1, shapeCollector.getShapeCollection().size());
-
     }
 
     @Test
     public void testRemoveFigure() {
-
         //Given
         ShapeCollector shapeCollector = new ShapeCollector();
         Shape shape = new Square();
@@ -53,29 +49,22 @@ public class ShapeCollectorTestSuite {
 
         //Then
         Assert.assertTrue(result);
-        assertEquals(1, shapeCollector.getShapeCollection().size());
+        assertTrue(shapeCollector.getShapeCollection().isEmpty());
 
     }
 
     @Test
     public void testGetFigure() {
-
         //Given
         ShapeCollector shapeCollector = new ShapeCollector();
         Shape shape = new Square();
         shapeCollector.addFigure(shape);
 
         //When
-        Shape retrievedShape;
-        retrievedShape = shapeCollector.getFigure();
+        Shape retrievedShape = shapeCollector.getFigure(0);
 
         //Then
-        assertEquals(shapeCollector, retrievedShape);
-
+        assertEquals(shape, retrievedShape);
     }
 
-    @Test
-    public void testShowFigures() {
-
-    }
 }
