@@ -28,7 +28,7 @@ public class ShapeCollector {
     }
 
     public void showFigures () {
-
+        System.out.println(shapeCollection);
     }
 
 }
