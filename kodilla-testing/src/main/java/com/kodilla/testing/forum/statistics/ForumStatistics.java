@@ -7,16 +7,7 @@ public class ForumStatistics {
     private int commentsQuantity;
     private double averagePostsQuantity;
     private double averageCommentsQuantity;
-    private double averageQuantity;
-
-    public ForumStatistics(int usersQuantity, int postsQuantity, int commentsQuantity, double averagePostsQuantity, double averageCommentsQuantity, double averageQuantity) {
-        this.usersQuantity = usersQuantity;
-        this.postsQuantity = postsQuantity;
-        this.commentsQuantity = commentsQuantity;
-        this.averagePostsQuantity = averagePostsQuantity;
-        this.averageCommentsQuantity = averageCommentsQuantity;
-        this.averageQuantity = averageQuantity;
-    }
+    private double averageQuantityCommentsPerPosts;
 
     public int getUsersQuantity() {
         return usersQuantity;
@@ -38,17 +29,50 @@ public class ForumStatistics {
         return averageCommentsQuantity;
     }
 
-    public double getAverageQuantity() {
-        return averageQuantity;
+    public double getAverageQuantityCommentsPerPosts() {
+        return averageQuantityCommentsPerPosts;
     }
 
-    public int calculateAdvStatistics (Statistics statistics) {
-
-
+    public double calculatedAveragePostsQuantity() {
+        if(postsQuantity > 0) {
+            return (double)postsQuantity / usersQuantity;
+        } else {
+            return 0;
+        }
     }
 
-    public int showStatistics() {
+    public double calculatedAverageCommentsQuantity() {
+        if(commentsQuantity > 0) {
+            return (double)commentsQuantity / usersQuantity;
+        } else {
+            return 0;
+        }
+    }
 
+    public double calculatedAverageQuantityCommentsPerPosts() {
+        if(commentsQuantity > 0) {
+            return (double)commentsQuantity / postsQuantity;
+        } else {
+            return 0;
+        }
+    }
+
+    public void calculateAdvStatistics (Statistics statistics) {
+        usersQuantity = statistics.usersNames().size();
+        postsQuantity = statistics.postsCount();
+        commentsQuantity = statistics.commentsCount();
+        averagePostsQuantity = calculatedAveragePostsQuantity();
+        averageCommentsQuantity = calculatedAverageCommentsQuantity();
+        averageQuantityCommentsPerPosts = calculatedAverageQuantityCommentsPerPosts();
+    }
+
+    public void showStatistics() {
+        System.out.println("Users Quantity:" + usersQuantity);
+        System.out.println("Posts Quantity:" + postsQuantity);
+        System.out.println("Comments Quantity:" + commentsQuantity);
+        System.out.println("Average Posts Quantity:" + averagePostsQuantity);
+        System.out.println("Average Comments Quantity:" + averageCommentsQuantity);
+        System.out.println("Average Quantity Comments Per Posts:" + averageQuantityCommentsPerPosts);
     }
 
 }
