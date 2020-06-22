@@ -20,8 +20,6 @@ public class StreamMain {
 
         System.out.println(theResultStringOfBooks);
 
-        LocalDate today = LocalDate.now();
-
         Forum forum = new Forum();
         Map<Integer, ForumUser> theResultMapOfForum = forum.getUserList().stream()
         .filter(forumUser -> forumUser.getSex() == 'M')
