@@ -22,10 +22,10 @@ public class StreamMain {
 
         Forum forum = new Forum();
         Map<Integer, ForumUser> theResultMapOfForum = forum.getUserList().stream()
-        .filter(forumUser -> forumUser.getSex() == 'M')
-        .filter(forumUser -> Period.between(forumUser.getDateOfBirth(), LocalDate.now()).getYears() > 20 )
-        .filter(forumUser -> forumUser.getPostsQuantity() >= 1)
-        .collect(Collectors.toMap(ForumUser::getUserID, ForumUser -> ForumUser));
+                .filter(forumUser -> forumUser.getSex() == 'M')
+                .filter(forumUser -> Period.between(forumUser.getDateOfBirth(), LocalDate.now()).getYears() > 20 )
+                .filter(forumUser -> forumUser.getPostsQuantity() >= 1)
+                .collect(Collectors.toMap(ForumUser::getUserID, forumUser -> forumUser));
 
         System.out.println("# elements: " + theResultMapOfForum.size());
 
