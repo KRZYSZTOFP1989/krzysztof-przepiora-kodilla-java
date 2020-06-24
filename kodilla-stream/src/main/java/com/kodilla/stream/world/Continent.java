@@ -1,23 +1,17 @@
 package com.kodilla.stream.world;
 
-import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Continent {
-
-    private final Set<Country> countryList = new HashSet<>();
+    private final List<Country> countryList = new ArrayList<>();
 
     public void addCountry(Country country) {
         countryList.add(country);
     }
 
-    public Set<BigDecimal> getPeopleOfContinent() {
-       return countryList.stream()
-                .map(country -> country.getPeopleQuantity())
-                .collect(Collectors.toSet());
-
+    public List<Country> getCountryList() {
+        return countryList;
     }
 
 }
