@@ -155,7 +155,7 @@ public class BoardTestSuite {
                 .flatMap(task -> task.getTasks().stream())
                 .map(t -> t.getCreated())
                 .map(d -> Period.between(d, LocalDate.now()).getDays())
-                .mapToDouble(dc -> dc)
+                .mapToDouble(e -> e)
                 .average()
                 .orElse(0);
 
