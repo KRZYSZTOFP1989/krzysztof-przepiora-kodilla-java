@@ -13,6 +13,9 @@ public class ArrayOperationsTestSuite {
        //When
        double average = ArrayOperations.getAverage(numbers);
 
+       //Than
+        assertEquals(27.8, average, 27.8);
+
     }
 
 }
