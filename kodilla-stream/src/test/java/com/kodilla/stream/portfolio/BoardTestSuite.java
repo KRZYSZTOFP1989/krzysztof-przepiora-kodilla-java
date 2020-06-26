@@ -143,13 +143,8 @@ public class BoardTestSuite {
         Board project = prepareTestData();
 
         //When
-        List<TaskList> inProgressTasks = new ArrayList<>();
-        inProgressTasks.add(new TaskList("First Example Task"));
-        inProgressTasks.add(new TaskList("Second Example Task"));
-        inProgressTasks.add(new TaskList("Third Example Task"));
-        inProgressTasks.add(new TaskList("Fourth Example Task"));
-        inProgressTasks.add(new TaskList("Fifth Example Task"));
-
+        List<TaskList>  inProgressTasks = new ArrayList<>();
+        inProgressTasks.add(new TaskList("In progress"));
         double average = project.getTaskLists().stream()
                 .filter(inProgressTasks::contains)
                 .flatMap(task -> task.getTasks().stream())
@@ -160,6 +155,7 @@ public class BoardTestSuite {
                 .orElse(0);
 
         //Then
-        Assert.assertEquals(5, average, 5);
+        Assert.assertEquals(10, average, 10);
+        System.out.print(average);
     }
 }
