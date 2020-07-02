@@ -145,13 +145,14 @@ public class BoardTestSuite {
 
         //When
         double average = project.getTaskLists().stream()
-                .filter(task -> task.getName().matches("In progress"))
+                .filter(task -> task.getName().equals("In progress"))
                 .flatMap(c -> c.getTasks().stream())
-                .mapToDouble(task -> LocalDate.from(task.getCreated()).until(LocalDate.now(), ChronoUnit.DAYS))
-                .average().getAsDouble();
+                .mapToDouble(task -> task.getCreated().until(LocalDate.now(), ChronoUnit.DAYS))
+                .average()
+                .orElse(0);
 
         //Then
-        Assert.assertEquals(10, average, 0);
+        Assert.assertEquals(10, average, 0.01);
         System.out.print(average);
     }
 }
