@@ -28,6 +28,7 @@ public class FootballWar extends Application {
     private Image playerLogo = new Image("file:C:\\Users\\Monika\\Desktop\\resources\\logos\\bvb.png");
     private Image cpuLogo = new Image("file:C:\\Users\\Monika\\Desktop\\resources\\logos\\bayern.png");
     private Image emptyLogo = new Image("file:C:\\Users\\Monika\\Desktop\\resources\\logos\\schalke.png");
+    private GameField[][] gameBoard = new GameField[3][3];
 
     public static void main(String[] args) {
         launch(args);
@@ -68,25 +69,13 @@ public class FootballWar extends Application {
 
         stackPane.getChildren().add(gridPane);
 
-        GameField gameField = createGameField(emptyLogo);
-        GameField gameField2 = createGameField(emptyLogo);
-        GameField gameField3 = createGameField(emptyLogo);
-        GameField gameField4 = createGameField(emptyLogo);
-        GameField gameField5 = createGameField(emptyLogo);
-        GameField gameField6 = createGameField(emptyLogo);
-        GameField gameField7 = createGameField(emptyLogo);
-        GameField gameField8 = createGameField(emptyLogo);
-        GameField gameField9 = createGameField(emptyLogo);
-
-        gridPane.add(gameField, 0, 0, 1, 1);
-        gridPane.add(gameField2, 1, 0, 1, 1);
-        gridPane.add(gameField3, 2, 0, 1, 1);
-        gridPane.add(gameField4, 0, 1, 1, 1);
-        gridPane.add(gameField5, 1, 1, 1, 1);
-        gridPane.add(gameField6, 2, 1, 1, 1);
-        gridPane.add(gameField7, 0, 2, 1, 1);
-        gridPane.add(gameField8, 1, 2, 1, 1);
-        gridPane.add(gameField9, 2, 2, 1, 1);
+        //Uzupelnienie gameBoard startowymi obrazkami
+        for (int i = 0; i < gameBoard.length; i++) {
+            for (int j = 0; j < gameBoard[i].length; j++) {
+                gameBoard[i][j] = createGameField(emptyLogo);
+                gridPane.add(gameBoard[i][j], i, j, 1, 1);
+            }
+        }
 
         Scene scene = new Scene(stackPane, 1300, 867, Color.GREEN);
 
