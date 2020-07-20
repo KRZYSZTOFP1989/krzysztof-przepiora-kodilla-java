@@ -93,6 +93,8 @@ public class FootballWar extends Application {
                 if (gameField.getImage().equals(emptyLogo)) {
                     gameField.setImage(playerLogo);
                     System.out.println("clicked!");
+                    //Sprawdzenie czy gracz wygral
+                    checkResult(playerLogo, "GRACZ");
                 }
             }
         });
@@ -100,12 +102,44 @@ public class FootballWar extends Application {
         return gameField;
     }
 
-    private void checkResult() {
+    private void checkResult(Image image, String name) {
+        //sprawdz remis
 
+        for (int i = 0; i < gameBoard.length; i++) {
+            //Poziomo
+            if (gameBoard[i][0].getImage().equals(image) && gameBoard[i][1].getImage().equals(image) && gameBoard[i][2].getImage().equals(image)) {
+                win(name);
+            }
+
+            //Pionowo
+            if (gameBoard[0][i].getImage().equals(image) && gameBoard[1][i].getImage().equals(image) && gameBoard[2][i].getImage().equals(image)) {
+                win(name);
+            }
+        }
+
+        //Przekatna \
+        if (false) {
+            win(name);
+        }
+
+        //Przekatna /
+        if (false) {
+            win(name);
+        }
     }
 
     private void cpuTurn() {
+        //implementacja ruchu
 
+
+        //Sprawdzenie czy komputer wygral
+        checkResult(cpuLogo, "CPU");
+    }
+
+    private void win(String name) {
+        //mozna zamienic na alert/wyskakujace okno z przyciskiem ok
+        //ktory sprawi restart planszy
+        System.out.println("Wygral " + name + "!");
     }
 
 }
