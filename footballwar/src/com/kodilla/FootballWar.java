@@ -19,15 +19,15 @@ public class FootballWar extends Application {
 
     private Text text1 = new Text("Twoja drużyna:");
     private Text text2 = new Text("Drużyna przeciwnika:");
-    private Image logomini = new Image("file:C:\\Users\\Monika\\Desktop\\resources\\logos\\bayermini.png");
-    private Image logomini2 = new Image("file:C:\\Users\\Monika\\Desktop\\resources\\logos\\werdermini.png");
+    private Image logomini = new Image("file:C:\\Users\\Monika\\Desktop\\resources\\logos\\bvbmini.png");
+    private Image logomini2 = new Image("file:C:\\Users\\Monika\\Desktop\\resources\\logos\\bayernmini.png");
     private ImageView userTeamMini = new ImageView(logomini);
     private ImageView computerTeamMini = new ImageView(logomini2);
     private Button button1 = new Button("Rozpocznij grę");
     private Image imageback = new Image("file:C:\\Users\\Monika\\Desktop\\resources\\table.png");
     private Image playerLogo = new Image("file:C:\\Users\\Monika\\Desktop\\resources\\logos\\bvb.png");
     private Image cpuLogo = new Image("file:C:\\Users\\Monika\\Desktop\\resources\\logos\\bayern.png");
-    private Image emptyLogo = new Image("file:C:\\Users\\Monika\\Desktop\\resources\\logos\\schalke.png");
+    private Image emptyLogo = new Image("file:C:\\Users\\Monika\\Desktop\\resources\\logos\\empty.png");
     private GameField[][] gameBoard = new GameField[3][3];
 
     public static void main(String[] args) {
@@ -90,12 +90,16 @@ public class FootballWar extends Application {
         gameField.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                System.out.println("Wykonaj swój ruch!");
                 if (gameField.getImage().equals(emptyLogo)) {
                     gameField.setImage(playerLogo);
-                    System.out.println("clicked!");
-                    //Sprawdzenie czy gracz wygral
-                    checkResult(playerLogo, "GRACZ");
+                    System.out.println("Clicked!");
+                } else {
+                    System.out.println("Czas na ruch przeciwnika!");
+                    cpuTurn();
                 }
+                //Sprawdzenie czy gracz wygral
+                checkResult(playerLogo, "GRACZ");
             }
         });
 
@@ -104,6 +108,11 @@ public class FootballWar extends Application {
 
     private void checkResult(Image image, String name) {
         //sprawdz remis
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++)
+                if (gameBoard[i][j].getImage().equals(image))
+                    draw();
+        }
 
         for (int i = 0; i < gameBoard.length; i++) {
             //Poziomo
@@ -115,31 +124,46 @@ public class FootballWar extends Application {
             if (gameBoard[0][i].getImage().equals(image) && gameBoard[1][i].getImage().equals(image) && gameBoard[2][i].getImage().equals(image)) {
                 win(name);
             }
-        }
 
-        //Przekatna \
-        if (false) {
-            win(name);
-        }
+            //Przekatna \
+            if (gameBoard[0][0].getImage().equals(image) && gameBoard[1][1].getImage().equals(image) && gameBoard[2][2].getImage().equals(image)) {
+                win(name);
+            }
 
-        //Przekatna /
-        if (false) {
-            win(name);
+            //Przekatna /
+            if (gameBoard[0][2].getImage().equals(image) && gameBoard[1][1].getImage().equals(image) && gameBoard[2][0].getImage().equals(image)) {
+                win(name);
+            }
+
         }
     }
 
     private void cpuTurn() {
-        //implementacja ruchu
+        int min = 0;
+        int max = 2;
+        int range = max - min + 1;
+        int see = 0;
+        while (see == 0) {
+            int i = (int)(Math.random() * range) + min;
+            int j = (int)(Math.random() * range) + min;
+            if (gameBoard[i][j].getImage().equals(emptyLogo)) {
+                gameBoard[i][j].setImage(cpuLogo);
+                see = 1;
+                }
+            }
 
-
-        //Sprawdzenie czy komputer wygral
-        checkResult(cpuLogo, "CPU");
+            // Sprawdzenie czy komputer wygral
+            checkResult(cpuLogo, "CPU");
     }
 
     private void win(String name) {
         //mozna zamienic na alert/wyskakujace okno z przyciskiem ok
         //ktory sprawi restart planszy
         System.out.println("Wygral " + name + "!");
+    }
+
+    private void draw() {
+        System.out.println("Remis!");
     }
 
 }
