@@ -4,7 +4,8 @@ import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -14,6 +15,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.util.Optional;
 
 public class FootballWar extends Application {
 
@@ -23,7 +25,6 @@ public class FootballWar extends Application {
     private Image logomini2 = new Image("file:C:\\Users\\Monika\\Desktop\\resources\\logos\\bayernmini.png");
     private ImageView userTeamMini = new ImageView(logomini);
     private ImageView computerTeamMini = new ImageView(logomini2);
-    private Button button1 = new Button("Rozpocznij grę");
     private Image imageback = new Image("file:C:\\Users\\Monika\\Desktop\\resources\\table.png");
     private Image playerLogo = new Image("file:C:\\Users\\Monika\\Desktop\\resources\\logos\\bvb.png");
     private Image cpuLogo = new Image("file:C:\\Users\\Monika\\Desktop\\resources\\logos\\bayern.png");
@@ -69,7 +70,6 @@ public class FootballWar extends Application {
 
         stackPane.getChildren().add(gridPane);
 
-        //Uzupelnienie gameBoard startowymi obrazkami
         for (int i = 0; i < gameBoard.length; i++) {
             for (int j = 0; j < gameBoard[i].length; j++) {
                 gameBoard[i][j] = createGameField(emptyLogo);
@@ -90,13 +90,11 @@ public class FootballWar extends Application {
         gameField.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                System.out.println("Wykonaj swój ruch!");
                 if (gameField.getImage().equals(emptyLogo)) {
                     gameField.setImage(playerLogo);
-                    System.out.println("Clicked!");
-                } else {
-                    System.out.println("Czas na ruch przeciwnika!");
-                    cpuTurn();
+                    if (gameField.getImage().equals(playerLogo) && gameField.getImage().equals(emptyLogo))
+                        System.out.println("Czas na ruch przeciwnika!");
+                        cpuTurn();
                 }
                 //Sprawdzenie czy gracz wygral
                 checkResult(playerLogo, "GRACZ");
@@ -104,6 +102,16 @@ public class FootballWar extends Application {
         });
 
         return gameField;
+    }
+
+    private void resetField() {
+        GridPane gridPane = new GridPane();
+        for (int i = 0; i < gameBoard.length; i++) {
+            for (int j = 0; j < gameBoard[i].length; j++) {
+                gameBoard[i][j] = createGameField(emptyLogo);
+                gridPane.add(gameBoard[i][j], i, j, 1, 1);
+            }
+        }
     }
 
     private void checkResult(Image image, String name) {
@@ -152,18 +160,41 @@ public class FootballWar extends Application {
                 }
             }
 
-            // Sprawdzenie czy komputer wygral
-            checkResult(cpuLogo, "CPU");
+        // Sprawdzenie czy komputer wygral
+        checkResult(cpuLogo, "CPU");
     }
 
     private void win(String name) {
-        //mozna zamienic na alert/wyskakujace okno z przyciskiem ok
-        //ktory sprawi restart planszy
-        System.out.println("Wygral " + name + "!");
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Koniec gry!!!");
+        alert.setHeaderText("Wygrywa" + " " + name);
+        alert.setResizable(false);
+        alert.setContentText("Kliknij OK, aby zagrać jeszcze raz lub Canel, aby zamknąć powiadomienie");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        ButtonType button = result.orElse(ButtonType.CANCEL);
+        if (button == ButtonType.OK) {
+            resetField();
+        } else {
+
+        }
     }
 
     private void draw() {
-        System.out.println("Remis!");
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Koniec gry!!!");
+        alert.setHeaderText("Remis");
+        alert.setResizable(false);
+        alert.setContentText("Kliknij OK, aby zagrać jeszcze raz lub Canel, aby zamknąć powiadomienie");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        ButtonType button = result.orElse(ButtonType.CANCEL);
+        if (button == ButtonType.OK) {
+            resetField();
+        } else {
+
+        }
+
     }
 
 }

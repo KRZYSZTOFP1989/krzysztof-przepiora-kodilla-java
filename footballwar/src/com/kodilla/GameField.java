@@ -6,6 +6,8 @@ import javafx.scene.image.ImageView;
 public class GameField extends ImageView {
 
     public GameField(Image image) {
+
         super(image);
     }
+
 }
