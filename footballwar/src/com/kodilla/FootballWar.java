@@ -92,12 +92,10 @@ public class FootballWar extends Application {
             public void handle(MouseEvent event) {
                 if (gameField.getImage().equals(emptyLogo)) {
                     gameField.setImage(playerLogo);
-                    if (gameField.getImage().equals(playerLogo) && gameField.getImage().equals(emptyLogo))
-                        System.out.println("Czas na ruch przeciwnika!");
-                        cpuTurn();
                 }
                 //Sprawdzenie czy gracz wygral
                 checkResult(playerLogo, "GRACZ");
+                cpuTurn();
             }
         });
 
@@ -105,23 +103,14 @@ public class FootballWar extends Application {
     }
 
     private void resetField() {
-        GridPane gridPane = new GridPane();
         for (int i = 0; i < gameBoard.length; i++) {
             for (int j = 0; j < gameBoard[i].length; j++) {
-                gameBoard[i][j] = createGameField(emptyLogo);
-                gridPane.add(gameBoard[i][j], i, j, 1, 1);
+                gameBoard[i][j].setImage(emptyLogo);
             }
         }
     }
 
     private void checkResult(Image image, String name) {
-        //sprawdz remis
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++)
-                if (gameBoard[i][j].getImage().equals(image))
-                    draw();
-        }
-
         for (int i = 0; i < gameBoard.length; i++) {
             //Poziomo
             if (gameBoard[i][0].getImage().equals(image) && gameBoard[i][1].getImage().equals(image) && gameBoard[i][2].getImage().equals(image)) {
@@ -144,6 +133,24 @@ public class FootballWar extends Application {
             }
 
         }
+
+        //sprawdz remis
+        checkDraw();
+    }
+
+    public void checkDraw() {
+        boolean shouldDraw = true;
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++)
+                if (gameBoard[i][j].getImage().equals(emptyLogo)) {
+                    shouldDraw = false;
+                }
+        }
+
+        if (shouldDraw) {
+            draw();
+        }
     }
 
     private void cpuTurn() {
@@ -157,44 +164,30 @@ public class FootballWar extends Application {
             if (gameBoard[i][j].getImage().equals(emptyLogo)) {
                 gameBoard[i][j].setImage(cpuLogo);
                 see = 1;
-                }
             }
+        }
 
         // Sprawdzenie czy komputer wygral
         checkResult(cpuLogo, "CPU");
     }
 
     private void win(String name) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Koniec gry!!!");
-        alert.setHeaderText("Wygrywa" + " " + name);
-        alert.setResizable(false);
-        alert.setContentText("Kliknij OK, aby zagrać jeszcze raz lub Canel, aby zamknąć powiadomienie");
-
-        Optional<ButtonType> result = alert.showAndWait();
-        ButtonType button = result.orElse(ButtonType.CANCEL);
-        if (button == ButtonType.OK) {
-            resetField();
-        } else {
-
-        }
+        showAlert("Wygrywa" + " " + name);
     }
 
     private void draw() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        showAlert("Remis");
+    }
+
+    private void showAlert(String headerText) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Koniec gry!!!");
-        alert.setHeaderText("Remis");
+        alert.setHeaderText(headerText);
         alert.setResizable(false);
-        alert.setContentText("Kliknij OK, aby zagrać jeszcze raz lub Canel, aby zamknąć powiadomienie");
+        alert.setContentText("Kliknij OK, aby zagrać jeszcze raz.");
 
-        Optional<ButtonType> result = alert.showAndWait();
-        ButtonType button = result.orElse(ButtonType.CANCEL);
-        if (button == ButtonType.OK) {
-            resetField();
-        } else {
-
-        }
-
+        alert.showAndWait();
+        resetField();
     }
 
 }
