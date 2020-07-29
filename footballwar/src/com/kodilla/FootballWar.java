@@ -5,7 +5,6 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -14,8 +13,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
-import java.util.Optional;
 
 public class FootballWar extends Application {
 
@@ -30,6 +27,7 @@ public class FootballWar extends Application {
     private Image cpuLogo = new Image("file:C:\\Users\\Monika\\Desktop\\resources\\logos\\bayern.png");
     private Image emptyLogo = new Image("file:C:\\Users\\Monika\\Desktop\\resources\\logos\\empty.png");
     private GameField[][] gameBoard = new GameField[3][3];
+    private Teams teams = new Teams();
 
     public static void main(String[] args) {
         launch(args);
@@ -108,6 +106,7 @@ public class FootballWar extends Application {
                 gameBoard[i][j].setImage(emptyLogo);
             }
         }
+        System.out.println(teams.getTeams()); //przyklad pobrania listy teamow z obrazkami
     }
 
     private void checkResult(Image image, String name) {
