@@ -59,8 +59,8 @@ public class Teams {
         teams.add(union);
 
         Team hoffenhem = new Team("TSG Hoffenheim",
-                new Image("file:C:\\Users\\Monika\\Desktop\\resources\\logos\\hoffenhem.png"),
-                new Image("file:C:\\Users\\Monika\\Desktop\\resources\\logos\\hoffenhemmini.png"));
+                new Image("file:C:\\Users\\Monika\\Desktop\\resources\\logos\\hoffenheim.png"),
+                new Image("file:C:\\Users\\Monika\\Desktop\\resources\\logos\\hoffenheimmini.png"));
         teams.add(hoffenhem);
 
         Team lipsk = new Team("RB Lipsk",
@@ -69,8 +69,8 @@ public class Teams {
         teams.add(lipsk);
 
         Team gladbach = new Team("Borussia M'gladbach",
-                new Image("file:C:\\Users\\Monika\\Desktop\\resources\\logos\\gladbach.png"),
-                new Image("file:C:\\Users\\Monika\\Desktop\\resources\\logos\\gladbachmini.png"));
+                new Image("file:C:\\Users\\Monika\\Desktop\\resources\\logos\\mgladbach.png"),
+                new Image("file:C:\\Users\\Monika\\Desktop\\resources\\logos\\mgladbachmini.png"));
         teams.add(gladbach);
 
         Team mainz = new Team("FSV Mainz",
@@ -118,7 +118,7 @@ public class Teams {
             footballWar.setPlayerLogo(team.getImage());
         }
 
-        ChoiceDialog<Team> computerTeam = new ChoiceDialog<>(teams.get(0), teams);
+        ChoiceDialog<Team> computerTeam = new ChoiceDialog<>(teams.get(1), teams);
         computerTeam.setTitle("Witaj w grze FootballWar!");
         computerTeam.setHeaderText("Wybierz drużynę przeciwnika");
         computerTeam.setContentText("Dostępne zespoły:");

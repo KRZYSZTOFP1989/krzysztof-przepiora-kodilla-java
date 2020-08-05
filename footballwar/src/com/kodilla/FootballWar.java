@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -18,6 +19,14 @@ public class FootballWar extends Application {
 
     private Text text1 = new Text("Twoja drużyna:");
     private Text text2 = new Text("Drużyna przeciwnika:");
+    private Text text3 = new Text("0");
+    private Text text4 = new Text(":");
+    private Text text5 = new Text("0");
+    private Button button1 = new Button("Reset");
+    private Button button2 = new Button("Zmień zespół");
+    private Button button3 = new Button("Zmień poziom");
+    private Button button4 = new Button("Zapisz grę");
+    private Button button5 = new Button("Ranking");
     private Image logomini = new Image("file:C:\\Users\\Monika\\Desktop\\resources\\logos\\bvbmini.png");
     private Image logomini2 = new Image("file:C:\\Users\\Monika\\Desktop\\resources\\logos\\bayernmini.png");
     private ImageView userTeamMini = new ImageView(logomini);
@@ -28,6 +37,7 @@ public class FootballWar extends Application {
     private Image emptyLogo = new Image("file:C:\\Users\\Monika\\Desktop\\resources\\logos\\empty.png");
     private GameField[][] gameBoard = new GameField[3][3];
     private Teams teams = new Teams();
+    private Levels levels = new Levels();
 
     public ImageView getUserTeamMini() {
         return userTeamMini;
@@ -57,6 +67,21 @@ public class FootballWar extends Application {
         text2.setFill(Color.web("#FFF"));
         text2.setFont(new Font("Arial", 24));
 
+        text3.setFill(Color.web("#FFF"));
+        text3.setFont(new Font("Arial", 50));
+
+        text4.setFill(Color.web("#FFF"));
+        text4.setFont(new Font("Arial", 50));
+
+        text5.setFill(Color.web("#FFF"));
+        text5.setFont(new Font("Arial", 50));
+
+        button1.setStyle("-fx-text-fill: #000000");
+        button2.setStyle("-fx-text-fill: #000000");
+        button3.setStyle("-fx-text-fill: #000000");
+        button4.setStyle("-fx-text-fill: #000000");
+        button5.setStyle("-fx-text-fill: #000000");
+
         BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
         BackgroundImage backgroundImage = new BackgroundImage(imageback, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         Background background = new Background(backgroundImage);
@@ -64,15 +89,45 @@ public class FootballWar extends Application {
         StackPane stackPane = new StackPane();
         stackPane.setBackground(background);
 
-        GridPane gridPaneTeam = new GridPane();
-        stackPane.getChildren().add(gridPaneTeam);
-        gridPaneTeam.setTranslateX(400);
-        gridPaneTeam.setHgap(10);
+        GridPane gridPaneMenu = new GridPane();
+        stackPane.getChildren().add(gridPaneMenu);
+        gridPaneMenu.setTranslateY(830);
+        gridPaneMenu.setTranslateX(400);
+        gridPaneMenu.setHgap(10);
 
-        gridPaneTeam.add(text1, 0, 0);
-        gridPaneTeam.add(userTeamMini, 1, 0);
-        gridPaneTeam.add(text2, 2, 0);
-        gridPaneTeam.add(computerTeamMini, 3, 0);
+        gridPaneMenu.add(button1, 1, 0);
+        gridPaneMenu.add(button2, 2, 0);
+        gridPaneMenu.add(button3, 3, 0);
+        gridPaneMenu.add(button4, 4, 0);
+        gridPaneMenu.add(button5, 5, 0);
+
+        GridPane gridPaneTeamPlayer = new GridPane();
+        stackPane.getChildren().add(gridPaneTeamPlayer);
+        gridPaneTeamPlayer.setTranslateX(50);
+        gridPaneTeamPlayer.setTranslateY(20);
+        gridPaneTeamPlayer.setHgap(10);
+
+        gridPaneTeamPlayer.add(text1, 1, 0);
+        gridPaneTeamPlayer.add(userTeamMini, 2, 0);
+
+        GridPane gridPaneScore = new GridPane();
+        stackPane.getChildren().add(gridPaneScore);
+        gridPaneScore.setTranslateX(600);
+        gridPaneScore.setTranslateY(20);
+        gridPaneScore.setHgap(10);
+
+        gridPaneScore.add(text3, 1, 0);
+        gridPaneScore.add(text4, 2, 0);
+        gridPaneScore.add(text5, 3, 0);
+
+        GridPane gridPaneTeamCPU = new GridPane();
+        stackPane.getChildren().add(gridPaneTeamCPU);
+        gridPaneTeamCPU.setTranslateX(900);
+        gridPaneTeamCPU.setTranslateY(20);
+        gridPaneTeamCPU.setHgap(10);
+
+        gridPaneTeamCPU.add(text2, 1, 0);
+        gridPaneTeamCPU.add(computerTeamMini, 2, 0);
 
         GridPane gridPane = new GridPane();
         gridPane.setHgap(120);
@@ -92,6 +147,7 @@ public class FootballWar extends Application {
         }
 
         teams.showChooseTeamAlert(this);
+        levels.showChooseLevelAlert();
 
         Scene scene = new Scene(stackPane, 1300, 867, Color.GREEN);
 
@@ -124,7 +180,6 @@ public class FootballWar extends Application {
                 gameBoard[i][j].setImage(emptyLogo);
             }
         }
-        teams.showChooseTeamAlert(this);
     }
 
     /*public boolean pointsCounter() {
