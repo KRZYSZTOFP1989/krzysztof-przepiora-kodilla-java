@@ -75,6 +75,8 @@ public class FootballWar extends Application {
             }
         }
 
+        teams.showChooseTeamAlert();
+
         Scene scene = new Scene(stackPane, 1300, 867, Color.GREEN);
 
         primaryStage.setTitle("FootballWar");
@@ -106,34 +108,53 @@ public class FootballWar extends Application {
                 gameBoard[i][j].setImage(emptyLogo);
             }
         }
-        System.out.println(teams.getTeams()); //przyklad pobrania listy teamow z obrazkami
+        teams.showChooseTeamAlert();
     }
 
+    /*public boolean pointsCounter() {
+
+        checkResult().gameObject.SetActive(true);
+        int playerWin = 0;
+        int cpuWin = 0;
+        Text playerWinScore;
+        Text cpuWinScore;
+
+        if (win("GRACZ")) {
+            playerWin++;
+            playerWinScore.text = playerWin.ToString();
+            System.out.println("The player has won " + playerWin + " time(s)");
+        }
+
+        if (win("CPU")) {
+            cpuWin+
+            cpuWinScore = cpuWin.ToString();
+            System.out.println("The computer has won " + cpuWin + " time(s)");
+        }
+
+        return pointsCounter();
+    }*/
+
     private void checkResult(Image image, String name) {
+
         for (int i = 0; i < gameBoard.length; i++) {
-            //Poziomo
             if (gameBoard[i][0].getImage().equals(image) && gameBoard[i][1].getImage().equals(image) && gameBoard[i][2].getImage().equals(image)) {
                 win(name);
             }
 
-            //Pionowo
             if (gameBoard[0][i].getImage().equals(image) && gameBoard[1][i].getImage().equals(image) && gameBoard[2][i].getImage().equals(image)) {
                 win(name);
             }
 
-            //Przekatna \
             if (gameBoard[0][0].getImage().equals(image) && gameBoard[1][1].getImage().equals(image) && gameBoard[2][2].getImage().equals(image)) {
                 win(name);
             }
 
-            //Przekatna /
             if (gameBoard[0][2].getImage().equals(image) && gameBoard[1][1].getImage().equals(image) && gameBoard[2][0].getImage().equals(image)) {
                 win(name);
             }
 
         }
 
-        //sprawdz remis
         checkDraw();
     }
 
@@ -166,12 +187,12 @@ public class FootballWar extends Application {
             }
         }
 
-        // Sprawdzenie czy komputer wygral
         checkResult(cpuLogo, "CPU");
     }
 
-    private void win(String name) {
+    private boolean win(String name) {
         showAlert("Wygrywa" + " " + name);
+        return false;
     }
 
     private void draw() {
@@ -183,7 +204,7 @@ public class FootballWar extends Application {
         alert.setTitle("Koniec gry!!!");
         alert.setHeaderText(headerText);
         alert.setResizable(false);
-        alert.setContentText("Kliknij OK, aby zagrać jeszcze raz.");
+        alert.setContentText("Kliknij OK, aby zagrać jeszcze raz");
 
         alert.showAndWait();
         resetField();

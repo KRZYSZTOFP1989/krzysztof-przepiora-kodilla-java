@@ -1,13 +1,16 @@
 package com.kodilla;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.image.Image;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Teams {
 
     private List<Team> teams;
 
     public Teams() {
+
         teams = new ArrayList<>();
 
         Team borussia = new Team("Borussia Dortmund",
@@ -99,11 +102,28 @@ public class Teams {
                 new Image("file:C:\\Users\\Monika\\Desktop\\resources\\logos\\koln.png"),
                 new Image("file:C:\\Users\\Monika\\Desktop\\resources\\logos\\kolnmini.png"));
         teams.add(koln);
-
     }
 
-    public List<Team> getTeams() {
-        return teams;
+    public void showChooseTeamAlert() {
+        ChoiceDialog<Team> yourTeam = new ChoiceDialog<>(teams.get(0), teams);
+        yourTeam.setTitle("Witaj w grze FootballWar!");
+        yourTeam.setHeaderText("Wybierz swoją drużynę");
+        yourTeam.setContentText("Dostępne zespoły:");
+
+        Optional<Team> userTeam = yourTeam.showAndWait();
+        if (userTeam.isPresent()){
+
+        }
+
+        ChoiceDialog<Team> computerTeam = new ChoiceDialog<>(teams.get(0), teams);
+        computerTeam.setTitle("Witaj w grze FootballWar!");
+        computerTeam.setHeaderText("Wybierz drużynę przeciwnika");
+        computerTeam.setContentText("Dostępne zespoły:");
+
+        Optional<Team> cpuTeam = computerTeam.showAndWait();
+        if (cpuTeam.isPresent()){
+
+        }
     }
 
 }

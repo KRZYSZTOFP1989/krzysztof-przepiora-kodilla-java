@@ -28,10 +28,6 @@ public class Team {
 
     @Override
     public String toString() {
-        return "Team{" +
-                "name='" + name + '\'' +
-                ", image=" + image +
-                ", miniImage=" + miniImage +
-                '}';
+        return name;
     }
 }
