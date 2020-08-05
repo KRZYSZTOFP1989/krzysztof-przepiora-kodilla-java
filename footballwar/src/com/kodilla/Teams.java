@@ -104,7 +104,7 @@ public class Teams {
         teams.add(koln);
     }
 
-    public void showChooseTeamAlert() {
+    public void showChooseTeamAlert(FootballWar footballWar) {
         ChoiceDialog<Team> yourTeam = new ChoiceDialog<>(teams.get(0), teams);
         yourTeam.setTitle("Witaj w grze FootballWar!");
         yourTeam.setHeaderText("Wybierz swoją drużynę");
@@ -112,7 +112,10 @@ public class Teams {
 
         Optional<Team> userTeam = yourTeam.showAndWait();
         if (userTeam.isPresent()){
-
+            Team team = userTeam.get();
+            //ustawia wybrany mini obrazek w ImageView
+            footballWar.getUserTeamMini().setImage(team.getMiniImage());
+            footballWar.setPlayerLogo(team.getImage());
         }
 
         ChoiceDialog<Team> computerTeam = new ChoiceDialog<>(teams.get(0), teams);
@@ -122,7 +125,10 @@ public class Teams {
 
         Optional<Team> cpuTeam = computerTeam.showAndWait();
         if (cpuTeam.isPresent()){
-
+            Team team = cpuTeam.get();
+            //ustawia wybrany mini obrazek w ImageView
+            footballWar.getComputerTeamMini().setImage(team.getMiniImage());
+            footballWar.setCpuLogo(team.getImage());
         }
     }
 

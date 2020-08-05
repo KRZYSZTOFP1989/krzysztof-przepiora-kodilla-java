@@ -29,6 +29,22 @@ public class FootballWar extends Application {
     private GameField[][] gameBoard = new GameField[3][3];
     private Teams teams = new Teams();
 
+    public ImageView getUserTeamMini() {
+        return userTeamMini;
+    }
+
+    public ImageView getComputerTeamMini() {
+        return computerTeamMini;
+    }
+
+    public void setPlayerLogo(Image playerLogo) {
+        this.playerLogo = playerLogo;
+    }
+
+    public void setCpuLogo(Image cpuLogo) {
+        this.cpuLogo = cpuLogo;
+    }
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -75,7 +91,7 @@ public class FootballWar extends Application {
             }
         }
 
-        teams.showChooseTeamAlert();
+        teams.showChooseTeamAlert(this);
 
         Scene scene = new Scene(stackPane, 1300, 867, Color.GREEN);
 
@@ -108,7 +124,7 @@ public class FootballWar extends Application {
                 gameBoard[i][j].setImage(emptyLogo);
             }
         }
-        teams.showChooseTeamAlert();
+        teams.showChooseTeamAlert(this);
     }
 
     /*public boolean pointsCounter() {
