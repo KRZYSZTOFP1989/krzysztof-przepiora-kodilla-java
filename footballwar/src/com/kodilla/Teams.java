@@ -1,9 +1,10 @@
 package com.kodilla;
+import com.sun.deploy.cache.BaseLocalApplicationProperties;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.image.Image;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+
+import java.util.*;
 
 public class Teams {
 
@@ -116,9 +117,11 @@ public class Teams {
             //ustawia wybrany mini obrazek w ImageView
             footballWar.getUserTeamMini().setImage(team.getMiniImage());
             footballWar.setPlayerLogo(team.getImage());
+            if (userTeam.isPresent())
+                teams.remove(userTeam.get());
         }
 
-        ChoiceDialog<Team> computerTeam = new ChoiceDialog<>(teams.get(1), teams);
+        ChoiceDialog<Team> computerTeam = new ChoiceDialog<>(teams.get(0), teams);
         computerTeam.setTitle("Witaj w grze FootballWar!");
         computerTeam.setHeaderText("Wybierz drużynę przeciwnika");
         computerTeam.setContentText("Dostępne zespoły:");
@@ -129,7 +132,8 @@ public class Teams {
             //ustawia wybrany mini obrazek w ImageView
             footballWar.getComputerTeamMini().setImage(team.getMiniImage());
             footballWar.setCpuLogo(team.getImage());
+            if (cpuTeam.isPresent())
+                teams.add(userTeam.get());
         }
     }
-
 }

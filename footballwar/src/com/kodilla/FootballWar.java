@@ -22,6 +22,8 @@ public class FootballWar extends Application {
     private Text text3 = new Text("0");
     private Text text4 = new Text(":");
     private Text text5 = new Text("0");
+    private int playerWin = 0;
+    private int cpuWin = 0;
     private Button button1 = new Button("Reset");
     private Button button2 = new Button("Zmień zespół");
     private Button button3 = new Button("Zmień poziom");
@@ -76,11 +78,11 @@ public class FootballWar extends Application {
         text5.setFill(Color.web("#FFF"));
         text5.setFont(new Font("Arial", 50));
 
-        button1.setStyle("-fx-text-fill: #000000");
-        button2.setStyle("-fx-text-fill: #000000");
-        button3.setStyle("-fx-text-fill: #000000");
-        button4.setStyle("-fx-text-fill: #000000");
-        button5.setStyle("-fx-text-fill: #000000");
+        button1.setOnAction(event -> resetField());
+        button2.setOnAction(event -> teams.showChooseTeamAlert(this));
+        button3.setOnAction(event -> levels.showChooseLevelAlert());
+        button4.setOnAction(event -> System.out.println("Test"));
+        button5.setOnAction(event -> System.out.println("Test"));
 
         BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
         BackgroundImage backgroundImage = new BackgroundImage(imageback, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
@@ -88,18 +90,6 @@ public class FootballWar extends Application {
 
         StackPane stackPane = new StackPane();
         stackPane.setBackground(background);
-
-        GridPane gridPaneMenu = new GridPane();
-        stackPane.getChildren().add(gridPaneMenu);
-        gridPaneMenu.setTranslateY(830);
-        gridPaneMenu.setTranslateX(400);
-        gridPaneMenu.setHgap(10);
-
-        gridPaneMenu.add(button1, 1, 0);
-        gridPaneMenu.add(button2, 2, 0);
-        gridPaneMenu.add(button3, 3, 0);
-        gridPaneMenu.add(button4, 4, 0);
-        gridPaneMenu.add(button5, 5, 0);
 
         GridPane gridPaneTeamPlayer = new GridPane();
         stackPane.getChildren().add(gridPaneTeamPlayer);
@@ -139,6 +129,18 @@ public class FootballWar extends Application {
 
         stackPane.getChildren().add(gridPane);
 
+        GridPane gridPaneMenu = new GridPane();
+        stackPane.getChildren().add(gridPaneMenu);
+        gridPaneMenu.setTranslateY(830);
+        gridPaneMenu.setTranslateX(400);
+        gridPaneMenu.setHgap(10);
+
+        gridPaneMenu.add(button1, 1, 0);
+        gridPaneMenu.add(button2, 2, 0);
+        gridPaneMenu.add(button3, 3, 0);
+        gridPaneMenu.add(button4, 4, 0);
+        gridPaneMenu.add(button5, 5, 0);
+
         for (int i = 0; i < gameBoard.length; i++) {
             for (int j = 0; j < gameBoard[i].length; j++) {
                 gameBoard[i][j] = createGameField(emptyLogo);
@@ -165,12 +167,11 @@ public class FootballWar extends Application {
                 if (gameField.getImage().equals(emptyLogo)) {
                     gameField.setImage(playerLogo);
                 }
-                //Sprawdzenie czy gracz wygral
                 checkResult(playerLogo, "GRACZ");
                 cpuTurn();
             }
         });
-
+        
         return gameField;
     }
 
@@ -182,51 +183,53 @@ public class FootballWar extends Application {
         }
     }
 
-    /*public boolean pointsCounter() {
-
-        checkResult().gameObject.SetActive(true);
-        int playerWin = 0;
-        int cpuWin = 0;
-        Text playerWinScore;
-        Text cpuWinScore;
-
-        if (win("GRACZ")) {
-            playerWin++;
-            playerWinScore.text = playerWin.ToString();
-            System.out.println("The player has won " + playerWin + " time(s)");
-        }
-
-        if (win("CPU")) {
-            cpuWin+
-            cpuWinScore = cpuWin.ToString();
-            System.out.println("The computer has won " + cpuWin + " time(s)");
-        }
-
-        return pointsCounter();
-    }*/
-
-    private void checkResult(Image image, String name) {
+    private boolean checkResult(Image image, String name) {
 
         for (int i = 0; i < gameBoard.length; i++) {
             if (gameBoard[i][0].getImage().equals(image) && gameBoard[i][1].getImage().equals(image) && gameBoard[i][2].getImage().equals(image)) {
                 win(name);
+                pointsCounter();
             }
 
             if (gameBoard[0][i].getImage().equals(image) && gameBoard[1][i].getImage().equals(image) && gameBoard[2][i].getImage().equals(image)) {
                 win(name);
+                pointsCounter();
             }
 
             if (gameBoard[0][0].getImage().equals(image) && gameBoard[1][1].getImage().equals(image) && gameBoard[2][2].getImage().equals(image)) {
                 win(name);
+                pointsCounter();
             }
 
             if (gameBoard[0][2].getImage().equals(image) && gameBoard[1][1].getImage().equals(image) && gameBoard[2][0].getImage().equals(image)) {
                 win(name);
+                pointsCounter();
             }
 
         }
 
         checkDraw();
+        return false;
+    }
+
+    public void pointsCounter() {
+
+        if(checkResult(playerLogo, "GRACZ")) {
+            playerWin++;
+            text3.setText(String.valueOf(playerWin));
+        } else {
+            cpuWin++;
+            text5.setText(String.valueOf(cpuWin));
+        }
+
+        if(checkResult(cpuLogo, "GRACZ")) {
+            cpuWin++;
+            text5.setText(String.valueOf(cpuWin));
+        } else {
+            playerWin++;
+            text3.setText(String.valueOf(playerWin));
+        }
+
     }
 
     public void checkDraw() {
@@ -257,7 +260,6 @@ public class FootballWar extends Application {
                 see = 1;
             }
         }
-
         checkResult(cpuLogo, "CPU");
     }
 
