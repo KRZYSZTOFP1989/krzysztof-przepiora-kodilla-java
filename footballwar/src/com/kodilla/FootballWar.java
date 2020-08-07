@@ -179,10 +179,10 @@ public class FootballWar extends Application {
         for (int i = 0; i < gameBoard.length; i++) {
             for (int j = 0; j < gameBoard[i].length; j++) {
                 gameBoard[i][j].setImage(emptyLogo);
+                text3.setText(String.valueOf(0));
+                text5.setText(String.valueOf(0));
             }
         }
-        text3.setText(String.valueOf(0));
-        text5.setText(String.valueOf(0));
         return false;
     }
 
@@ -190,6 +190,11 @@ public class FootballWar extends Application {
 
         text3.setText(String.valueOf(playerWin));
         text5.setText(String.valueOf(cpuWin));
+
+        if(resetField()) {
+            text3.setText(String.valueOf(0));
+            text5.setText(String.valueOf(0));
+        }
     }
 
     private boolean checkResult(Image image, String name) {
