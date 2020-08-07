@@ -29,14 +29,14 @@ public class FootballWar extends Application {
     private Button button3 = new Button("Zmień poziom");
     private Button button4 = new Button("Zapisz grę");
     private Button button5 = new Button("Ranking");
-    private Image logomini = new Image("file:C:\\Users\\Monika\\Desktop\\resources\\logos\\bvbmini.png");
-    private Image logomini2 = new Image("file:C:\\Users\\Monika\\Desktop\\resources\\logos\\bayernmini.png");
+    private Image logomini = new Image("file:images/logos/bvbmini.png");
+    private Image logomini2 = new Image("file:images/logos/bayernmini.png");
     private ImageView userTeamMini = new ImageView(logomini);
     private ImageView computerTeamMini = new ImageView(logomini2);
-    private Image imageback = new Image("file:C:\\Users\\Monika\\Desktop\\resources\\table.png");
-    private Image playerLogo = new Image("file:C:\\Users\\Monika\\Desktop\\resources\\logos\\bvb.png");
-    private Image cpuLogo = new Image("file:C:\\Users\\Monika\\Desktop\\resources\\logos\\bayern.png");
-    private Image emptyLogo = new Image("file:C:\\Users\\Monika\\Desktop\\resources\\logos\\empty.png");
+    private Image imageback = new Image("file:images/table.png");
+    private Image playerLogo = new Image("file:images/logos/bvb.png");
+    private Image cpuLogo = new Image("file:images/logos/bayern.png");
+    private Image emptyLogo = new Image("file:images/logos/empty.png");
     private GameField[][] gameBoard = new GameField[3][3];
     private Teams teams = new Teams();
     private Levels levels = new Levels();
@@ -175,34 +175,43 @@ public class FootballWar extends Application {
         return gameField;
     }
 
-    private void resetField() {
+    private boolean resetField() {
         for (int i = 0; i < gameBoard.length; i++) {
             for (int j = 0; j < gameBoard[i].length; j++) {
                 gameBoard[i][j].setImage(emptyLogo);
             }
         }
+        text3.setText(String.valueOf(0));
+        text5.setText(String.valueOf(0));
+        return false;
+    }
+
+    public void pointsCounter() {
+
+        text3.setText(String.valueOf(playerWin));
+        text5.setText(String.valueOf(cpuWin));
     }
 
     private boolean checkResult(Image image, String name) {
 
         for (int i = 0; i < gameBoard.length; i++) {
             if (gameBoard[i][0].getImage().equals(image) && gameBoard[i][1].getImage().equals(image) && gameBoard[i][2].getImage().equals(image)) {
-                win(name);
+                win(name, image);
                 pointsCounter();
             }
 
             if (gameBoard[0][i].getImage().equals(image) && gameBoard[1][i].getImage().equals(image) && gameBoard[2][i].getImage().equals(image)) {
-                win(name);
+                win(name, image);
                 pointsCounter();
             }
 
             if (gameBoard[0][0].getImage().equals(image) && gameBoard[1][1].getImage().equals(image) && gameBoard[2][2].getImage().equals(image)) {
-                win(name);
+                win(name, image);
                 pointsCounter();
             }
 
             if (gameBoard[0][2].getImage().equals(image) && gameBoard[1][1].getImage().equals(image) && gameBoard[2][0].getImage().equals(image)) {
-                win(name);
+                win(name, image);
                 pointsCounter();
             }
 
@@ -210,26 +219,6 @@ public class FootballWar extends Application {
 
         checkDraw();
         return false;
-    }
-
-    public void pointsCounter() {
-
-        if(checkResult(playerLogo, "GRACZ")) {
-            playerWin++;
-            text3.setText(String.valueOf(playerWin));
-        } else {
-            cpuWin++;
-            text5.setText(String.valueOf(cpuWin));
-        }
-
-        if(checkResult(cpuLogo, "GRACZ")) {
-            cpuWin++;
-            text5.setText(String.valueOf(cpuWin));
-        } else {
-            playerWin++;
-            text3.setText(String.valueOf(playerWin));
-        }
-
     }
 
     public void checkDraw() {
@@ -263,8 +252,17 @@ public class FootballWar extends Application {
         checkResult(cpuLogo, "CPU");
     }
 
-    private boolean win(String name) {
-        showAlert("Wygrywa" + " " + name);
+    private boolean win(String name, Image image) {
+
+        if(image == playerLogo) {
+            showAlert("Wygrywa" + " " + name);
+            playerWin++;
+        }
+
+        if(image == cpuLogo) {
+            showAlert("Wygrywa" + " " + name);
+            cpuWin++;
+        }
         return false;
     }
 
