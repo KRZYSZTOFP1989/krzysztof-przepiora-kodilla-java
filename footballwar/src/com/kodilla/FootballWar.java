@@ -15,6 +15,13 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.stream.Stream;
+
 public class FootballWar extends Application {
 
     private Text text1 = new Text("Twoja drużyna:");
@@ -81,7 +88,7 @@ public class FootballWar extends Application {
         button1.setOnAction(event -> resetField());
         button2.setOnAction(event -> teams.showChooseTeamAlert(this));
         button3.setOnAction(event -> levels.showChooseLevelAlert());
-        button4.setOnAction(event -> System.out.println("Test"));
+        button4.setOnAction(event -> Paths.get("file:images/logos/output.txt"));
         button5.setOnAction(event -> System.out.println("Test"));
 
         BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
@@ -141,6 +148,25 @@ public class FootballWar extends Application {
         gridPaneMenu.add(button4, 4, 0);
         gridPaneMenu.add(button5, 5, 0);
 
+        Path path = Paths.get("file:images/logos/output.txt");
+
+        try (BufferedWriter writer = Files.newBufferedWriter(path))
+        {
+            writer.write("Zapisuje wynik");
+        } catch (IOException e) {
+            System.out.println("wystąpił błąd: " + e);
+        }
+
+        Path file = Paths.get("file:images/logos/output.txt");
+
+        try (Stream<String> stream = Files.lines(file)) {
+
+            stream.forEach(System.out::println);
+
+        } catch (IOException e) {
+            System.out.println("wystąpił błąd: " + e);
+        }
+
         for (int i = 0; i < gameBoard.length; i++) {
             for (int j = 0; j < gameBoard[i].length; j++) {
                 gameBoard[i][j] = createGameField(emptyLogo);
@@ -171,28 +197,28 @@ public class FootballWar extends Application {
                 cpuTurn();
             }
         });
-        
         return gameField;
     }
 
-    private boolean resetField() {
+
+    private void resetField() {
         for (int i = 0; i < gameBoard.length; i++) {
             for (int j = 0; j < gameBoard[i].length; j++) {
                 gameBoard[i][j].setImage(emptyLogo);
+                text3.setText(String.valueOf(0));
+                text5.setText(String.valueOf(0));
             }
         }
-        text3.setText(String.valueOf(0));
-        text5.setText(String.valueOf(0));
-        return false;
     }
 
     public void pointsCounter() {
 
         text3.setText(String.valueOf(playerWin));
         text5.setText(String.valueOf(cpuWin));
+
     }
 
-    private boolean checkResult(Image image, String name) {
+    private void checkResult(Image image, String name) {
 
         for (int i = 0; i < gameBoard.length; i++) {
             if (gameBoard[i][0].getImage().equals(image) && gameBoard[i][1].getImage().equals(image) && gameBoard[i][2].getImage().equals(image)) {
@@ -218,7 +244,6 @@ public class FootballWar extends Application {
         }
 
         checkDraw();
-        return false;
     }
 
     public void checkDraw() {
@@ -252,7 +277,7 @@ public class FootballWar extends Application {
         checkResult(cpuLogo, "CPU");
     }
 
-    private boolean win(String name, Image image) {
+    private void win(String name, Image image) {
 
         if(image == playerLogo) {
             showAlert("Wygrywa" + " " + name);
@@ -263,7 +288,6 @@ public class FootballWar extends Application {
             showAlert("Wygrywa" + " " + name);
             cpuWin++;
         }
-        return false;
     }
 
     private void draw() {
