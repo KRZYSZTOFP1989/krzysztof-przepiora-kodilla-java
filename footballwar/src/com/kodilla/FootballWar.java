@@ -15,11 +15,12 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Stream;
 
 public class FootballWar extends Application {
@@ -35,7 +36,8 @@ public class FootballWar extends Application {
     private Button button2 = new Button("Zmień zespół");
     private Button button3 = new Button("Zmień poziom");
     private Button button4 = new Button("Zapisz grę");
-    private Button button5 = new Button("Ranking");
+    private Button button5 = new Button("Wczytaj grę");
+    private Button button6 = new Button("Ranking");
     private Image logomini = new Image("file:images/logos/bvbmini.png");
     private Image logomini2 = new Image("file:images/logos/bayernmini.png");
     private ImageView userTeamMini = new ImageView(logomini);
@@ -88,8 +90,9 @@ public class FootballWar extends Application {
         button1.setOnAction(event -> resetField());
         button2.setOnAction(event -> teams.showChooseTeamAlert(this));
         button3.setOnAction(event -> levels.showChooseLevelAlert());
-        button4.setOnAction(event -> Paths.get("file:images/logos/output.txt"));
-        button5.setOnAction(event -> System.out.println("Test"));
+        button4.setOnAction(event -> saveMap());
+        button5.setOnAction(event -> loadMap());
+        button6.setOnAction(event -> System.out.println("Test"));
 
         BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
         BackgroundImage backgroundImage = new BackgroundImage(imageback, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
@@ -147,25 +150,7 @@ public class FootballWar extends Application {
         gridPaneMenu.add(button3, 3, 0);
         gridPaneMenu.add(button4, 4, 0);
         gridPaneMenu.add(button5, 5, 0);
-
-        Path path = Paths.get("file:images/logos/output.txt");
-
-        try (BufferedWriter writer = Files.newBufferedWriter(path))
-        {
-            writer.write("Zapisuje wynik");
-        } catch (IOException e) {
-            System.out.println("wystąpił błąd: " + e);
-        }
-
-        Path file = Paths.get("file:images/logos/output.txt");
-
-        try (Stream<String> stream = Files.lines(file)) {
-
-            stream.forEach(System.out::println);
-
-        } catch (IOException e) {
-            System.out.println("wystąpił błąd: " + e);
-        }
+        gridPaneMenu.add(button6, 6, 0);
 
         for (int i = 0; i < gameBoard.length; i++) {
             for (int j = 0; j < gameBoard[i].length; j++) {
@@ -292,6 +277,35 @@ public class FootballWar extends Application {
 
     private void draw() {
         showAlert("Remis");
+    }
+
+    File savedHashMaps = new File("ranking.list");
+    Map<String, Long> map = new HashMap<>();
+
+    public void saveMap() {
+
+            try {
+                ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(savedHashMaps));
+                oos.writeObject(map);
+                oos.close();
+            } catch (Exception e) {
+
+            }
+    }
+
+   public void loadMap() {
+
+        try {
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(savedHashMaps));
+            Object readMap = ois.readObject();
+            if(readMap instanceof HashMap) {
+                map.putAll((HashMap) readMap);
+            }
+            ois.close();
+        } catch (Exception e) {
+
+        }
+
     }
 
     private void showAlert(String headerText) {
