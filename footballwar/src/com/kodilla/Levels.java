@@ -15,11 +15,9 @@ public class Levels {
         levels = new ArrayList<>();
 
         Level easy = new Level("Łatwy");
-        Level medium = new Level("Średni");
         Level hard = new Level("Trudny");
 
         levels.add(easy);
-        levels.add(medium);
         levels.add(hard);
 
     }
@@ -33,7 +31,6 @@ public class Levels {
 
         Optional<Level> result = dialog.showAndWait();
         if (result.isPresent()) {
-
         }
 
     }

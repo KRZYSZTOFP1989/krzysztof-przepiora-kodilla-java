@@ -14,14 +14,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 import java.io.*;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Stream;
+import java.io.Serializable;
+
 
 public class FootballWar extends Application {
 
@@ -90,9 +88,9 @@ public class FootballWar extends Application {
         button1.setOnAction(event -> resetField());
         button2.setOnAction(event -> teams.showChooseTeamAlert(this));
         button3.setOnAction(event -> levels.showChooseLevelAlert());
-        button4.setOnAction(event -> saveMap());
-        button5.setOnAction(event -> loadMap());
-        button6.setOnAction(event -> System.out.println("Test"));
+        button4.setOnAction(event -> saveGame());
+        button5.setOnAction(event -> loadGame());
+        button6.setOnAction(event -> ranking());
 
         BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
         BackgroundImage backgroundImage = new BackgroundImage(imageback, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
@@ -179,7 +177,7 @@ public class FootballWar extends Application {
                     gameField.setImage(playerLogo);
                 }
                 checkResult(playerLogo, "GRACZ");
-                cpuTurn();
+                cpuTurnEasy();
             }
         });
         return gameField;
@@ -194,6 +192,7 @@ public class FootballWar extends Application {
                 text5.setText(String.valueOf(0));
             }
         }
+
     }
 
     public void pointsCounter() {
@@ -246,7 +245,23 @@ public class FootballWar extends Application {
         }
     }
 
-    private void cpuTurn() {
+    private void cpuTurnEasy() {
+        int min = 0;
+        int max = 2;
+        int range = max - min + 1;
+        int see = 0;
+        while (see == 0) {
+            int i = (int)(Math.random() * range) + min;
+            int j = (int)(Math.random() * range) + min;
+            if (gameBoard[i][j].getImage().equals(emptyLogo)) {
+                gameBoard[i][j].setImage(cpuLogo);
+                see = 1;
+            }
+        }
+        checkResult(cpuLogo, "CPU");
+    }
+
+    private void cpuTurnHard() {
         int min = 0;
         int max = 2;
         int range = max - min + 1;
@@ -279,10 +294,10 @@ public class FootballWar extends Application {
         showAlert("Remis");
     }
 
-    File savedHashMaps = new File("ranking.list");
-    Map<String, Long> map = new HashMap<>();
+    File savedHashMaps = new File("save.game");
+    Map<String, Team> map = new HashMap<>();
 
-    public void saveMap() {
+    public void saveGame() {
 
             try {
                 ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(savedHashMaps));
@@ -293,7 +308,7 @@ public class FootballWar extends Application {
             }
     }
 
-   public void loadMap() {
+   public void loadGame() {
 
         try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(savedHashMaps));
@@ -302,6 +317,19 @@ public class FootballWar extends Application {
                 map.putAll((HashMap) readMap);
             }
             ois.close();
+        } catch (Exception e) {
+
+        }
+
+    }
+
+    File saveRanking = new File("ranking.list");
+
+    public void ranking() {
+
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(saveRanking));
+            oos.close();
         } catch (Exception e) {
 
         }
