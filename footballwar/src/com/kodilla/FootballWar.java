@@ -14,7 +14,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import sun.awt.SunHints;
 
 import java.io.*;
 import java.util.HashMap;
@@ -89,7 +88,7 @@ public class FootballWar extends Application {
         text5.setFill(Color.web("#FFF"));
         text5.setFont(new Font("Arial", 50));
 
-        button1.setOnAction(event -> resetField());
+        button1.setOnAction(event -> pointsCounterReset());
         button2.setOnAction(event -> teams.showChooseTeamAlert(this));
         button3.setOnAction(event -> levels.showChooseLevelAlert());
         button4.setOnAction(event -> saveGame());
@@ -176,12 +175,8 @@ public class FootballWar extends Application {
         for (GameField[] gameFields : gameBoard) {
             for (GameField gameField : gameFields) {
                 gameField.setImage(emptyLogo);
-                text3.setText(String.valueOf(0));
-                text5.setText(String.valueOf(0));
             }
         }
-        playerWin = 0;
-        cpuWin = 0;
     }
 
     private GameField createGameField(Image image) {
@@ -232,6 +227,18 @@ public class FootballWar extends Application {
         text3.setText(String.valueOf(playerWin));
         text5.setText(String.valueOf(cpuWin));
 
+    }
+
+    public void pointsCounterReset() {
+        for (GameField[] gameFields : gameBoard) {
+            for (GameField gameField : gameFields) {
+                gameField.setImage(emptyLogo);
+            }
+        }
+        text3.setText(String.valueOf(0));
+        text5.setText(String.valueOf(0));
+        playerWin = 0;
+        cpuWin = 0;
     }
 
     public void checkDraw() {
