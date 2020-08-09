@@ -14,11 +14,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import sun.awt.SunHints;
+
 import java.io.*;
-import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
-import java.io.Serializable;
 
 
 public class FootballWar extends Application {
@@ -47,6 +47,10 @@ public class FootballWar extends Application {
     private GameField[][] gameBoard = new GameField[3][3];
     private Teams teams = new Teams();
     private Levels levels = new Levels();
+    File save = new File("save.game");
+    Map<Image, Image> logos = new HashMap<>();
+    Map<Text, Integer> resultsUser = new HashMap<>();
+    Map<Text, Integer> resultsCPU = new HashMap<>();
 
     public ImageView getUserTeamMini() {
         return userTeamMini;
@@ -168,6 +172,18 @@ public class FootballWar extends Application {
 
     }
 
+    private void resetField() {
+        for (GameField[] gameFields : gameBoard) {
+            for (GameField gameField : gameFields) {
+                gameField.setImage(emptyLogo);
+                text3.setText(String.valueOf(0));
+                text5.setText(String.valueOf(0));
+            }
+        }
+        playerWin = 0;
+        cpuWin = 0;
+    }
+
     private GameField createGameField(Image image) {
         GameField gameField =  new GameField(image);
         gameField.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -181,25 +197,6 @@ public class FootballWar extends Application {
             }
         });
         return gameField;
-    }
-
-
-    private void resetField() {
-        for (int i = 0; i < gameBoard.length; i++) {
-            for (int j = 0; j < gameBoard[i].length; j++) {
-                gameBoard[i][j].setImage(emptyLogo);
-                text3.setText(String.valueOf(0));
-                text5.setText(String.valueOf(0));
-            }
-        }
-
-    }
-
-    public void pointsCounter() {
-
-        text3.setText(String.valueOf(playerWin));
-        text5.setText(String.valueOf(cpuWin));
-
     }
 
     private void checkResult(Image image, String name) {
@@ -230,6 +227,13 @@ public class FootballWar extends Application {
         checkDraw();
     }
 
+    public void pointsCounter() {
+
+        text3.setText(String.valueOf(playerWin));
+        text5.setText(String.valueOf(cpuWin));
+
+    }
+
     public void checkDraw() {
         boolean shouldDraw = true;
 
@@ -243,6 +247,20 @@ public class FootballWar extends Application {
         if (shouldDraw) {
             draw();
         }
+    }
+
+    private void win(String name, Image image) {
+
+        if(image == playerLogo) {
+            showAlert("Wygrywa" + " " + name);
+            playerWin++;
+        }
+
+        if(image == cpuLogo) {
+            showAlert("Wygrywa" + " " + name);
+            cpuWin++;
+        }
+
     }
 
     private void cpuTurnEasy() {
@@ -277,49 +295,43 @@ public class FootballWar extends Application {
         checkResult(cpuLogo, "CPU");
     }
 
-    private void win(String name, Image image) {
-
-        if(image == playerLogo) {
-            showAlert("Wygrywa" + " " + name);
-            playerWin++;
-        }
-
-        if(image == cpuLogo) {
-            showAlert("Wygrywa" + " " + name);
-            cpuWin++;
-        }
-    }
-
     private void draw() {
         showAlert("Remis");
     }
 
-    File savedHashMaps = new File("save.game");
-    Map<String, Team> map = new HashMap<>();
-
     public void saveGame() {
 
-            try {
-                ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(savedHashMaps));
-                oos.writeObject(map);
-                oos.close();
-            } catch (Exception e) {
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(save));
+            oos.writeObject(logos);
+            oos.close();
+            logos.put(playerLogo, cpuLogo);
+            oos.writeObject(resultsUser);
+            oos.close();
+            resultsUser.put(text3, playerWin);
+            oos.writeObject(resultsCPU);
+            oos.close();
+            resultsCPU.put(text5, cpuWin);
 
-            }
+        } catch (Exception e) {
+
+        }
     }
 
    public void loadGame() {
 
-        try {
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(savedHashMaps));
-            Object readMap = ois.readObject();
-            if(readMap instanceof HashMap) {
-                map.putAll((HashMap) readMap);
-            }
-            ois.close();
-        } catch (Exception e) {
+       try {
+           ObjectInputStream ois = new ObjectInputStream(new FileInputStream(save));
+           Object readMap = ois.readObject();
+           if(readMap instanceof HashMap) {
+               logos.putAll((HashMap) readMap);
+               resultsUser.putAll((HashMap) readMap);
+               resultsCPU.putAll((HashMap) readMap);
+           }
+           ois.close();
+       } catch (Exception e) {
 
-        }
+       }
 
     }
 

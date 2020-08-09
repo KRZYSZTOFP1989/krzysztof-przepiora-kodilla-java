@@ -10,4 +10,7 @@ public class GameField extends ImageView {
         super(image);
     }
 
+    public GameField() {
+
+    }
 }
