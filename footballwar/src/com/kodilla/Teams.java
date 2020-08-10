@@ -117,6 +117,7 @@ public class Teams {
             //ustawia wybrany mini obrazek w ImageView
             footballWar.getUserTeamMini().setImage(team.getMiniImage());
             footballWar.setPlayerLogo(team.getImage());
+            footballWar.setPlayerTeam(team);
             if (userTeam.isPresent())
                 teams.remove(userTeam.get());
         }
@@ -132,6 +133,7 @@ public class Teams {
             //ustawia wybrany mini obrazek w ImageView
             footballWar.getComputerTeamMini().setImage(team.getMiniImage());
             footballWar.setCpuLogo(team.getImage());
+            footballWar.setCpuTeam(team);
             if (cpuTeam.isPresent())
                 teams.add(userTeam.get());
         }

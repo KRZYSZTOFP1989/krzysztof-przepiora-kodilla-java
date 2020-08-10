@@ -16,8 +16,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class FootballWar extends Application {
@@ -34,7 +32,8 @@ public class FootballWar extends Application {
     private Button button3 = new Button("Zmień poziom");
     private Button button4 = new Button("Zapisz grę");
     private Button button5 = new Button("Wczytaj grę");
-    private Button button6 = new Button("Ranking");
+    private Button button6 = new Button("Zapisz wynik");
+    private Button button7 = new Button("Ranking");
     private Image logomini = new Image("file:images/logos/bvbmini.png");
     private Image logomini2 = new Image("file:images/logos/bayernmini.png");
     private ImageView userTeamMini = new ImageView(logomini);
@@ -46,10 +45,10 @@ public class FootballWar extends Application {
     private GameField[][] gameBoard = new GameField[3][3];
     private Teams teams = new Teams();
     private Levels levels = new Levels();
+    private Team playerTeam = null;
+    private Team cpuTeam = null;
     File save = new File("save.game");
-    Map<Image, Image> logos = new HashMap<>();
-    Map<Text, Integer> resultsUser = new HashMap<>();
-    Map<Text, Integer> resultsCPU = new HashMap<>();
+    File saveRanking = new File("ranking.list");
 
     public ImageView getUserTeamMini() {
         return userTeamMini;
@@ -65,6 +64,22 @@ public class FootballWar extends Application {
 
     public void setCpuLogo(Image cpuLogo) {
         this.cpuLogo = cpuLogo;
+    }
+
+    public Team getPlayerTeam() {
+        return playerTeam;
+    }
+
+    public void setPlayerTeam(Team playerTeam) {
+        this.playerTeam = playerTeam;
+    }
+
+    public Team getCpuTeam() {
+        return cpuTeam;
+    }
+
+    public void setCpuTeam(Team cpuTeam) {
+        this.cpuTeam = cpuTeam;
     }
 
     public static void main(String[] args) {
@@ -94,6 +109,7 @@ public class FootballWar extends Application {
         button4.setOnAction(event -> saveGame());
         button5.setOnAction(event -> loadGame());
         button6.setOnAction(event -> ranking());
+        button7.setOnAction(event -> ranking());
 
         BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
         BackgroundImage backgroundImage = new BackgroundImage(imageback, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
@@ -223,10 +239,8 @@ public class FootballWar extends Application {
     }
 
     public void pointsCounter() {
-
         text3.setText(String.valueOf(playerWin));
         text5.setText(String.valueOf(cpuWin));
-
     }
 
     public void pointsCounterReset() {
@@ -309,19 +323,16 @@ public class FootballWar extends Application {
     public void saveGame() {
 
         try {
+            int[][] gameBoard = null;
+
+            GameState gameState = new GameState(playerWin, cpuWin, playerTeam.getName(),
+                    cpuTeam.getName(), gameBoard);
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(save));
-            oos.writeObject(logos);
+            oos.writeObject(gameState);
             oos.close();
-            logos.put(playerLogo, cpuLogo);
-            oos.writeObject(resultsUser);
-            oos.close();
-            resultsUser.put(text3, playerWin);
-            oos.writeObject(resultsCPU);
-            oos.close();
-            resultsCPU.put(text5, cpuWin);
 
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 
@@ -329,20 +340,24 @@ public class FootballWar extends Application {
 
        try {
            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(save));
-           Object readMap = ois.readObject();
-           if(readMap instanceof HashMap) {
-               logos.putAll((HashMap) readMap);
-               resultsUser.putAll((HashMap) readMap);
-               resultsCPU.putAll((HashMap) readMap);
+           Object loadObject = ois.readObject();
+           if(loadObject instanceof GameState) {
+               GameState gameState = (GameState) loadObject;
+               loadGameState(gameState);
+               System.out.println(loadObject);
            }
            ois.close();
        } catch (Exception e) {
-
+           e.printStackTrace();
        }
 
     }
 
-    File saveRanking = new File("ranking.list");
+    private void loadGameState(GameState gameState) {
+        playerWin = gameState.getPlayerWin();
+        cpuWin = gameState.getCpuWin();
+        pointsCounter();
+    }
 
     public void ranking() {
 
