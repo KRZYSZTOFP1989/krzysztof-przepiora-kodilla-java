@@ -138,4 +138,13 @@ public class Teams {
                 teams.add(userTeam.get());
         }
     }
+
+    public Team getTeamByName(String name) {
+        for (Team team : teams) {
+            if (team.getName().equals(name)) {
+                return team;
+            }
+        }
+        return null;
+    }
 }
