@@ -1,4 +1,4 @@
-com.kodilla.good.patternsplugins {
+plugins {
     id 'java'
 }
 
