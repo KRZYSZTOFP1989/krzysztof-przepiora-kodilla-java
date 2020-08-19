@@ -24,4 +24,8 @@ public class Board {
         return doneList;
     }
 
+    @Override
+    public String toString() {
+        return "" + toDoList + inProgressList + doneList;
+    }
 }
