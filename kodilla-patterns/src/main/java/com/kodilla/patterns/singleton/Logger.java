@@ -1,18 +1,18 @@
 package com.kodilla.patterns.singleton;
 
 public class Logger {
-    private static Logger LoggerInstance = null;
+    private static Logger loggerInstance = null;
     private String lastLog = "";
 
     public static Logger getInstance() {
-        if (LoggerInstance == null) {
+        if (loggerInstance == null) {
             synchronized(Logger.class) {
-                if (LoggerInstance == null) {
-                    LoggerInstance = new Logger();
+                if (loggerInstance == null) {
+                    loggerInstance = new Logger();
                 }
             }
         }
-        return LoggerInstance;
+        return loggerInstance;
     }
 
     public void log(String log) {
