@@ -34,10 +34,10 @@ public class UserTestSuite {
 
         //When
         String giuseppeSharePost = giuseppe.sharePost();
-        System.out.println("Giuseppe share post on " + giuseppeSharePost);
-        giuseppe.medium(new TwitterPublisher());
+        System.out.println("Giuseppe share post on: " + giuseppeSharePost);
+        giuseppe.setMediumStrategy(new TwitterPublisher());
         giuseppeSharePost = giuseppe.sharePost();
-        System.out.println("Giuseppe share post on " + giuseppeSharePost);
+        System.out.println("Giuseppe share post on: " + giuseppeSharePost);
 
         //Then
         Assert.assertEquals("Twitter", giuseppeSharePost);

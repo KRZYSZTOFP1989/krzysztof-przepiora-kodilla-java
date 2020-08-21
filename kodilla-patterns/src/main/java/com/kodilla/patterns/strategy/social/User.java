@@ -13,7 +13,7 @@ public class User {
         return name;
     }
 
-    public void medium(SocialPublisher socialPublisher) {
+    public void setMediumStrategy(SocialPublisher socialPublisher) {
         this.socialPublisher = socialPublisher;
     }
 
