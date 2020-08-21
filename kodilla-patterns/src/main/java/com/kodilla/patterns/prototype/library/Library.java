@@ -19,6 +19,11 @@ public final class Library extends Prototype {
         return books;
     }
 
+    @Override
+    public String toString() {
+        return name + " " + books;
+    }
+
     public Library shallowCopy() throws CloneNotSupportedException {
         return (Library)super.clone();
     }

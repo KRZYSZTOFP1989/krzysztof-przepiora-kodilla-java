@@ -30,8 +30,6 @@ public class LibraryTestSuite {
         } catch (CloneNotSupportedException e) {
             System.out.println(e);
         }
-        System.out.println(library);
-        System.out.println(clonedLibrary);
 
         Library deepClonedLibrary = null;
         try {
@@ -41,10 +39,14 @@ public class LibraryTestSuite {
         }
 
         //When
+        library.getBooks().remove(book1);
 
         //Then
-        Assert.assertEquals(5, library.getBooks().size());
-        Assert.assertEquals(5, clonedLibrary.getBooks().size());
+        System.out.println(library);
+        System.out.println(clonedLibrary);
+        System.out.println(deepClonedLibrary);
+        Assert.assertEquals(4, library.getBooks().size());
+        Assert.assertEquals(4, clonedLibrary.getBooks().size());
         Assert.assertEquals(5, deepClonedLibrary.getBooks().size());
     }
 }
