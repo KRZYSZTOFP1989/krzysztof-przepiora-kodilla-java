@@ -10,22 +10,11 @@ public class TaskFactoryTestSuite {
         //Given
         TaskFactory factory = new TaskFactory();
         //When
-        Task shopping = factory.makeTask(TaskFactory.ShoppingTask);
+        Task shopping = factory.makeTask(TaskFactory.FirstVariable);
         shopping.executeTask();
         //Then
         Assert.assertEquals(shopping.getTaskName(), "go to the grocery store");
-        Assert.assertTrue(shopping.TaskExecuted());
-    }
-
-    @Test
-    public void testDrivingTask() {
-        //Given
-        TaskFactory factory = new TaskFactory();
-        //When
-        Task driving = factory.makeTask(TaskFactory.DrivingTask);
-        //Then
-        Assert.assertEquals(driving.getTaskName(), "go to the station");
-        Assert.assertTrue(driving.TaskExecuted());
+        Assert.assertTrue(shopping.isTaskExecuted());
     }
 
     @Test
@@ -33,9 +22,23 @@ public class TaskFactoryTestSuite {
         //Given
         TaskFactory factory = new TaskFactory();
         //When
-        Task painting = factory.makeTask(TaskFactory.PaintingTask);
+        Task painting = factory.makeTask(TaskFactory.SecondVariable);
+        painting.executeTask();
         //Then
         Assert.assertEquals(painting.getTaskName(), "painting walls");
-        Assert.assertTrue(painting.TaskExecuted());
+        Assert.assertTrue(painting.isTaskExecuted());
     }
+
+    @Test
+    public void testDrivingTask() {
+        //Given
+        TaskFactory factory = new TaskFactory();
+        //When
+        Task driving = factory.makeTask(TaskFactory.ThirdVariable);
+        driving.executeTask();
+        //Then
+        Assert.assertEquals(driving.getTaskName(), "go to the station");
+        Assert.assertTrue(driving.isTaskExecuted());
+    }
+
 }
