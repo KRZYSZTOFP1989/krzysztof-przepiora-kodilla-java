@@ -2,9 +2,9 @@ package com.kodilla.patterns.factory.tasks;
 
 public final class TaskFactory {
 
-        public static final String FirstVariable = "FirstVariable";
-        public static final String SecondVariable = "SecondVariable";
-        public static final String ThirdVariable = "ThirdVariable";
+        public static final String FirstVariable = "VARIABLE_FIRST";
+        public static final String SecondVariable = "VARIABLE_SECOND";
+        public static final String ThirdVariable = "VARIABLE_THIRD";
 
         public final Task makeTask(final String taskClass) {
             switch (taskClass) {
