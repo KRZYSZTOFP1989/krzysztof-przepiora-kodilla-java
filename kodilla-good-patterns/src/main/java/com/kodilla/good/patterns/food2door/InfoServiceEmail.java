@@ -10,7 +10,7 @@ public class InfoServiceEmail {
                 .map(n -> {
                     System.out.println("Hello " + n.getUser().getName() + " your order for" + " " + n.getProductsOrderRequest()
                      + " was saved on " + n.getOrderDate());
-                    return n.process(n.getUser(), n.getProductsOrderRequest(), n.getOrderDate());
+                    return n.getProvider().process(n.getUser(), n.getProductsOrderRequest(), n.getOrderDate());
                 })
                 .forEach(t -> System.out.println("Order finished with success: " + t + "\n"));
     }
