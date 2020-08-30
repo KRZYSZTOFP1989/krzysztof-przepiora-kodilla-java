@@ -1,14 +1,16 @@
 package com.kodilla.good.patterns.food2door;
 
-public class Aplication {
+import java.util.List;
+
+public class Application {
 
     public static void main(String[] args) {
 
         OrderService orderService = new OrderService();
+        List<OrderRequest> retriver = new OrderRequestRetriever().retriver();
+        orderService.processAllOrders(retriver);
         InfoServiceEmail infoServiceEmail = new InfoServiceEmail();
-        orderService.processAllOrders(new OrderRequestRetriever().retriver());
         infoServiceEmail.processAllOrdersDatabase(new OrderRequestRetriever().retriver());
-
     }
 }
 

@@ -4,28 +4,28 @@ import java.time.LocalTime;
 
 public class Flight {
 
-    private String ArrivalAirport;
-    private String DepartureAirport;
-    private String TransferAirport;
+    private String arrivalAirport;
+    private String departureAirport;
+    private String transferAirport;
     private LocalTime time;
 
     public Flight(String arrivalAirport, String departureAirport, String transferAirport, LocalTime time) {
-        ArrivalAirport = arrivalAirport;
-        DepartureAirport = departureAirport;
-        TransferAirport = transferAirport;
+        this.arrivalAirport = arrivalAirport;
+        this.departureAirport = departureAirport;
+        this.transferAirport = transferAirport;
         this.time = time;
     }
 
     public String getArrivalAirport() {
-        return ArrivalAirport;
+        return arrivalAirport;
     }
 
     public String getDepartureAirport() {
-        return DepartureAirport;
+        return departureAirport;
     }
 
     public String getTransferAirport() {
-        return TransferAirport;
+        return transferAirport;
     }
 
     public LocalTime getTime() {
@@ -39,17 +39,17 @@ public class Flight {
 
         Flight flight = (Flight) o;
 
-        if (!ArrivalAirport.equals(flight.ArrivalAirport)) return false;
-        if (!DepartureAirport.equals(flight.DepartureAirport)) return false;
-        if (!TransferAirport.equals(flight.TransferAirport)) return false;
+        if (!arrivalAirport.equals(flight.arrivalAirport)) return false;
+        if (!departureAirport.equals(flight.departureAirport)) return false;
+        if (!transferAirport.equals(flight.transferAirport)) return false;
         return time.equals(flight.time);
     }
 
     @Override
     public int hashCode() {
-        int result = ArrivalAirport.hashCode();
-        result = 31 * result + DepartureAirport.hashCode();
-        result = 31 * result + TransferAirport.hashCode();
+        int result = arrivalAirport.hashCode();
+        result = 31 * result + departureAirport.hashCode();
+        result = 31 * result + transferAirport.hashCode();
         result = 31 * result + time.hashCode();
         return result;
     }
@@ -57,9 +57,9 @@ public class Flight {
     @Override
     public String toString() {
         return "Flight{" +
-                "ArrivalAirport='" + ArrivalAirport + '\'' +
-                ", DepartureAirport='" + DepartureAirport + '\'' +
-                ", TransferAirport='" + TransferAirport + '\'' +
+                "ArrivalAirport='" + arrivalAirport + '\'' +
+                ", DepartureAirport='" + departureAirport + '\'' +
+                ", TransferAirport='" + transferAirport + '\'' +
                 ", time=" + time +
                 '}';
     }
