@@ -5,8 +5,6 @@ import java.util.stream.Collectors;
 
 public class FlightsSearch {
 
-    private FlightsDatabase flightsDatabase;
-
     public static List<Flight> findFlightsFrom(String flightFrom, List<Flight> flightsDatabase) {
          return flightsDatabase.stream()
                  .filter(n -> n.getArrivalAirport().equals(flightFrom))
