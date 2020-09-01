@@ -7,11 +7,10 @@ import org.springframework.data.repository.CrudRepository;
 import javax.transaction.Transactional;
 import java.util.List;
 
-
+@Respository
 public interface TaskListDao extends CrudRepository<TaskList, Integer> {
 
     @Transactional
-    @Respository
     List<TaskList> findByListName(String listName);
 
 }
