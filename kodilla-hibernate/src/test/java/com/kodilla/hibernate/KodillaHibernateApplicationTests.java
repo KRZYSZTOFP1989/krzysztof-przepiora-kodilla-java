@@ -1,4 +1,4 @@
-package com.kodilla.hibernate.task.dao;
+package com.kodilla.hibernate;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
