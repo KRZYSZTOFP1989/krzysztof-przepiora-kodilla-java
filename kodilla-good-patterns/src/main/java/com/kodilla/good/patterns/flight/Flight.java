@@ -4,28 +4,22 @@ import java.time.LocalTime;
 
 public class Flight {
 
-    private String arrivalAirport;
     private String departureAirport;
-    private String transferAirport;
+    private String arrivalAirport;
     private LocalTime time;
 
-    public Flight(String arrivalAirport, String departureAirport, String transferAirport, LocalTime time) {
-        this.arrivalAirport = arrivalAirport;
+    public Flight(String departureAirport, String arrivalAirport, LocalTime time) {
         this.departureAirport = departureAirport;
-        this.transferAirport = transferAirport;
+        this.arrivalAirport = arrivalAirport;
         this.time = time;
-    }
-
-    public String getArrivalAirport() {
-        return arrivalAirport;
     }
 
     public String getDepartureAirport() {
         return departureAirport;
     }
 
-    public String getTransferAirport() {
-        return transferAirport;
+    public String getArrivalAirport() {
+        return arrivalAirport;
     }
 
     public LocalTime getTime() {
@@ -39,17 +33,15 @@ public class Flight {
 
         Flight flight = (Flight) o;
 
-        if (!arrivalAirport.equals(flight.arrivalAirport)) return false;
         if (!departureAirport.equals(flight.departureAirport)) return false;
-        if (!transferAirport.equals(flight.transferAirport)) return false;
+        if (!arrivalAirport.equals(flight.arrivalAirport)) return false;
         return time.equals(flight.time);
     }
 
     @Override
     public int hashCode() {
-        int result = arrivalAirport.hashCode();
-        result = 31 * result + departureAirport.hashCode();
-        result = 31 * result + transferAirport.hashCode();
+        int result = departureAirport.hashCode();
+        result = 31 * result + arrivalAirport.hashCode();
         result = 31 * result + time.hashCode();
         return result;
     }
@@ -57,9 +49,8 @@ public class Flight {
     @Override
     public String toString() {
         return "Flight{" +
-                "ArrivalAirport='" + arrivalAirport + '\'' +
-                ", DepartureAirport='" + departureAirport + '\'' +
-                ", TransferAirport='" + transferAirport + '\'' +
+                "ArrivalAirport='" + departureAirport + '\'' +
+                ", DepartureAirport='" + arrivalAirport + '\'' +
                 ", time=" + time +
                 '}';
     }

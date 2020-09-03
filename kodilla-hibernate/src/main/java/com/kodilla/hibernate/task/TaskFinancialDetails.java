@@ -1,4 +1,3 @@
-
 package com.kodilla.hibernate.task;
 
 import javax.persistence.*;
