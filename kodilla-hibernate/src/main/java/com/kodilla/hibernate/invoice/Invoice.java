@@ -37,11 +37,12 @@ public class Invoice {
         return number;
     }
 
-    @OneToMany(targetEntity = Item.class,
+    @OneToMany(
+            targetEntity = Item.class,
             mappedBy = "invoice",
             cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY)
-    @Column(name = "ITEM_ID")
+            fetch = FetchType.LAZY
+    )
     @NotNull
     public List<Item> getItems() {
         return items;
