@@ -24,7 +24,6 @@ public class InvoiceDaoTestSuite {
 
     @Test
     public void testInvoiceDaoSave() {
-
         //Given
         Invoice invoice = new Invoice("2020/09/02KP");
 
@@ -60,6 +59,6 @@ public class InvoiceDaoTestSuite {
         Assert.assertEquals(3, itemSize);
 
         //CleanUp
-        //invoiceDao.deleteById(id);
+        invoiceDao.deleteById(invoiceId);
     }
 }
