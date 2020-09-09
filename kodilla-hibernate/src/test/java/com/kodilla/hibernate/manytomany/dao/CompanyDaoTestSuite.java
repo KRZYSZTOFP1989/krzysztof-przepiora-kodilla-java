@@ -93,6 +93,9 @@ public class CompanyDaoTestSuite {
         companyDao.save(dataMaesters);
         companyDao.save(greyMatter);
 
+        int softwareMachineId = softwareMachine.getId();
+        int stephanieClarcksonId = stephanieClarckson.getId();
+
         //When
         List<Company> resultCompany = companyDao.retrieveCompanyNameSelected("Sof");
         List<Employee> resultEmployee = employeeDao.retrieveSelectedLastName("Clarckson");
@@ -100,5 +103,13 @@ public class CompanyDaoTestSuite {
         //Than
         Assert.assertEquals(1, resultCompany.size());
         Assert.assertEquals(1, resultEmployee.size());
+
+        //CleanUp
+        try {
+            companyDao.deleteById(softwareMachineId);
+            employeeDao.deleteById(stephanieClarcksonId);
+        } catch (Exception e) {
+            //do nothing
+        }
     }
 }
