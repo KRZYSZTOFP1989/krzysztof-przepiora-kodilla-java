@@ -23,7 +23,7 @@ public final class SearchFacade {
     }
 
     public List<Employee> employessName(String fragmentOfName) {
-        return employeeDao.retrieveSelectedLastName(fragmentOfName);
+        return employeeDao.retrieveSelectedFragmentLastName(fragmentOfName);
     }
 
 }
