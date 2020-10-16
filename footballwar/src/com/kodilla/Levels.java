@@ -14,9 +14,11 @@ public class Levels {
         levels = new ArrayList<>();
 
         Level easy = new Level("Początkujący");
-        Level hard = new Level("Zaawansowany");
+        Level medium = new Level("Zaawansowany");
+        Level hard = new Level("Trudny");
 
         levels.add(easy);
+        levels.add(medium);
         levels.add(hard);
     }
 

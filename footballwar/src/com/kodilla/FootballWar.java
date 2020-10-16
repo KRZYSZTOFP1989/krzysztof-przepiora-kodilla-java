@@ -221,6 +221,8 @@ public class FootballWar extends Application {
                 if (actualLevel.getName().equals("Początkujący")) {
                     cpuTurnEasy();
                 } else if (actualLevel.getName().equals("Zaawansowany")) {
+                    cpuTurnMedium();
+                } else if (actualLevel.getName().equals("Trudny")) {
                     cpuTurnHard();
                 }
             }
@@ -318,7 +320,7 @@ public class FootballWar extends Application {
         checkResult(cpuLogo, "CPU");
     }
 
-    private void cpuTurnHard() {
+    private void cpuTurnMedium() {
         if (gameBoard[0][0].getImage().equals(cpuLogo) && gameBoard[0][1].getImage().equals(cpuLogo)
                 && gameBoard[0][2].getImage().equals(emptyLogo)) {
             gameBoard[0][2].setImage(cpuLogo);
@@ -389,6 +391,187 @@ public class FootballWar extends Application {
             checkResult(cpuLogo, "CPU");
         } else {
             cpuTurnEasy();
+        }
+    }
+
+    private void cpuTurnHard() {
+        if (gameBoard[0][0].getImage().equals(cpuLogo) && gameBoard[0][1].getImage().equals(cpuLogo)
+                && gameBoard[0][2].getImage().equals(emptyLogo)) {
+            gameBoard[0][2].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        } else if (gameBoard[0][2].getImage().equals(cpuLogo) && gameBoard[0][1].getImage().equals(cpuLogo)
+                && gameBoard[0][0].getImage().equals(emptyLogo)) {
+            gameBoard[0][0].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        } else if (gameBoard[1][0].getImage().equals(cpuLogo) && gameBoard[1][1].getImage().equals(cpuLogo)
+                && gameBoard[1][2].getImage().equals(emptyLogo)) {
+            gameBoard[1][2].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        } else if (gameBoard[1][2].getImage().equals(cpuLogo) && gameBoard[1][1].getImage().equals(cpuLogo)
+                && gameBoard[1][0].getImage().equals(emptyLogo)) {
+            gameBoard[1][0].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        } else if (gameBoard[2][0].getImage().equals(cpuLogo) && gameBoard[2][1].getImage().equals(cpuLogo)
+                && gameBoard[2][2].getImage().equals(emptyLogo)) {
+            gameBoard[2][2].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        } else if (gameBoard[2][2].getImage().equals(cpuLogo) && gameBoard[2][1].getImage().equals(cpuLogo)
+                && gameBoard[2][0].getImage().equals(emptyLogo)) {
+            gameBoard[2][0].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        } else if (gameBoard[2][0].getImage().equals(cpuLogo) && gameBoard[1][1].getImage().equals(cpuLogo)
+                && gameBoard[0][2].getImage().equals(emptyLogo)) {
+            gameBoard[0][0].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        } else if (gameBoard[0][0].getImage().equals(cpuLogo) && gameBoard[1][1].getImage().equals(cpuLogo)
+                && gameBoard[2][2].getImage().equals(emptyLogo)) {
+            gameBoard[2][2].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        } else if (gameBoard[2][2].getImage().equals(cpuLogo) && gameBoard[1][1].getImage().equals(cpuLogo)
+                && gameBoard[0][0].getImage().equals(emptyLogo)) {
+            gameBoard[0][0].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        }  else if (gameBoard[0][0].getImage().equals(cpuLogo) && gameBoard[1][0].getImage().equals(cpuLogo)
+                && gameBoard[2][0].getImage().equals(emptyLogo)) {
+            gameBoard[2][0].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        }  else if (gameBoard[2][0].getImage().equals(cpuLogo) && gameBoard[1][0].getImage().equals(cpuLogo)
+                && gameBoard[0][0].getImage().equals(emptyLogo)) {
+            gameBoard[0][0].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        }  else if (gameBoard[0][1].getImage().equals(cpuLogo) && gameBoard[1][1].getImage().equals(cpuLogo)
+                && gameBoard[2][1].getImage().equals(emptyLogo)) {
+            gameBoard[2][1].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        }  else if (gameBoard[2][1].getImage().equals(cpuLogo) && gameBoard[1][1].getImage().equals(cpuLogo)
+                && gameBoard[0][1].getImage().equals(emptyLogo)) {
+            gameBoard[0][1].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        }  else if (gameBoard[0][2].getImage().equals(cpuLogo) && gameBoard[1][2].getImage().equals(cpuLogo)
+                && gameBoard[2][2].getImage().equals(emptyLogo)) {
+            gameBoard[0][1].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        }  else if (gameBoard[2][2].getImage().equals(cpuLogo) && gameBoard[1][2].getImage().equals(cpuLogo)
+                && gameBoard[0][2].getImage().equals(emptyLogo)) {
+            gameBoard[0][2].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        } else if (gameBoard[2][2].getImage().equals(cpuLogo) && gameBoard[1][1].getImage().equals(cpuLogo)
+                && gameBoard[0][0].getImage().equals(emptyLogo)) {
+            gameBoard[0][0].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        } else if (gameBoard[0][0].getImage().equals(cpuLogo) && gameBoard[1][1].getImage().equals(cpuLogo)
+                && gameBoard[2][2].getImage().equals(emptyLogo)) {
+            gameBoard[2][2].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        } else if (gameBoard[0][0].getImage().equals(playerLogo) && gameBoard[1][1].getImage().equals(playerLogo)
+                && gameBoard[2][2].getImage().equals(emptyLogo)) {
+            gameBoard[2][2].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        } else if (gameBoard[0][2].getImage().equals(playerLogo) && gameBoard[1][1].getImage().equals(playerLogo)
+                && gameBoard[2][0].getImage().equals(emptyLogo)) {
+            gameBoard[2][0].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        } else if (gameBoard[0][0].getImage().equals(playerLogo) && gameBoard[2][2].getImage().equals(playerLogo)
+                && gameBoard[1][1].getImage().equals(emptyLogo)) {
+            gameBoard[1][1].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        } else if (gameBoard[0][2].getImage().equals(playerLogo) && gameBoard[2][0].getImage().equals(playerLogo)
+                && gameBoard[1][1].getImage().equals(emptyLogo)) {
+            gameBoard[1][1].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        } else if (gameBoard[2][0].getImage().equals(playerLogo) && gameBoard[1][1].getImage().equals(playerLogo)
+                && gameBoard[0][2].getImage().equals(emptyLogo)) {
+            gameBoard[0][2].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        } else if (gameBoard[2][2].getImage().equals(playerLogo) && gameBoard[1][1].getImage().equals(playerLogo)
+                && gameBoard[0][0].getImage().equals(emptyLogo)) {
+            gameBoard[0][0].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        } else if (gameBoard[0][0].getImage().equals(playerLogo) && gameBoard[1][1].getImage().equals(playerLogo)
+                && gameBoard[2][2].getImage().equals(emptyLogo)) {
+            gameBoard[2][2].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        } else if (gameBoard[0][0].getImage().equals(playerLogo) && gameBoard[1][0].getImage().equals(playerLogo)
+                && gameBoard[2][0].getImage().equals(emptyLogo)) {
+            gameBoard[2][0].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        } else if (gameBoard[1][0].getImage().equals(playerLogo) && gameBoard[0][0].getImage().equals(playerLogo)
+                && gameBoard[2][0].getImage().equals(emptyLogo)) {
+            gameBoard[2][0].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        } else if (gameBoard[0][0].getImage().equals(playerLogo) && gameBoard[2][0].getImage().equals(playerLogo)
+                && gameBoard[1][0].getImage().equals(emptyLogo)) {
+            gameBoard[1][0].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        } else if (gameBoard[1][0].getImage().equals(playerLogo) && gameBoard[2][0].getImage().equals(playerLogo)
+                && gameBoard[0][0].getImage().equals(emptyLogo)) {
+            gameBoard[0][0].setImage(cpuLogo);
+        } else if (gameBoard[0][1].getImage().equals(playerLogo) && gameBoard[1][1].getImage().equals(playerLogo)
+                && gameBoard[2][1].getImage().equals(emptyLogo)) {
+            gameBoard[2][1].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        } else if (gameBoard[0][1].getImage().equals(playerLogo) && gameBoard[2][1].getImage().equals(playerLogo)
+                && gameBoard[1][1].getImage().equals(emptyLogo)) {
+            gameBoard[1][1].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        } else if (gameBoard[1][1].getImage().equals(playerLogo) && gameBoard[2][1].getImage().equals(playerLogo)
+                && gameBoard[0][1].getImage().equals(emptyLogo)) {
+            gameBoard[0][1].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        } else if (gameBoard[0][2].getImage().equals(playerLogo) && gameBoard[1][2].getImage().equals(playerLogo)
+                && gameBoard[2][2].getImage().equals(emptyLogo)) {
+            gameBoard[2][2].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        } else if (gameBoard[0][2].getImage().equals(playerLogo) && gameBoard[2][2].getImage().equals(playerLogo)
+                && gameBoard[1][2].getImage().equals(emptyLogo)) {
+            gameBoard[1][2].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        } else if (gameBoard[1][2].getImage().equals(playerLogo) && gameBoard[2][2].getImage().equals(playerLogo)
+                && gameBoard[0][2].getImage().equals(emptyLogo)) {
+            gameBoard[0][2].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        } else if (gameBoard[0][0].getImage().equals(playerLogo) && gameBoard[0][1].getImage().equals(playerLogo)
+                && gameBoard[0][2].getImage().equals(emptyLogo)) {
+            gameBoard[0][2].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        } else if (gameBoard[0][0].getImage().equals(playerLogo) && gameBoard[0][2].getImage().equals(playerLogo)
+                && gameBoard[0][1].getImage().equals(emptyLogo)) {
+            gameBoard[0][1].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        } else if (gameBoard[0][1].getImage().equals(playerLogo) && gameBoard[0][2].getImage().equals(playerLogo)
+                && gameBoard[0][0].getImage().equals(emptyLogo)) {
+            gameBoard[0][0].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        } else if (gameBoard[1][0].getImage().equals(playerLogo) && gameBoard[1][1].getImage().equals(playerLogo)
+                && gameBoard[1][2].getImage().equals(emptyLogo)) {
+            gameBoard[1][2].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        } else if (gameBoard[1][0].getImage().equals(playerLogo) && gameBoard[1][2].getImage().equals(playerLogo)
+                && gameBoard[1][1].getImage().equals(emptyLogo)) {
+            gameBoard[1][1].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        } else if (gameBoard[1][1].getImage().equals(playerLogo) && gameBoard[1][2].getImage().equals(playerLogo)
+                && gameBoard[1][0].getImage().equals(emptyLogo)) {
+            gameBoard[1][0].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        } else if (gameBoard[1][2].getImage().equals(playerLogo) && gameBoard[1][1].getImage().equals(playerLogo)
+                && gameBoard[1][0].getImage().equals(emptyLogo)) {
+            gameBoard[1][0].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        } else if (gameBoard[2][0].getImage().equals(playerLogo) && gameBoard[2][1].getImage().equals(playerLogo)
+                && gameBoard[2][2].getImage().equals(emptyLogo)) {
+            gameBoard[2][2].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        } else if (gameBoard[2][0].getImage().equals(playerLogo) && gameBoard[2][2].getImage().equals(playerLogo)
+                && gameBoard[2][1].getImage().equals(emptyLogo)) {
+            gameBoard[2][1].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        } else if (gameBoard[2][1].getImage().equals(playerLogo) && gameBoard[2][2].getImage().equals(playerLogo)
+                && gameBoard[2][0].getImage().equals(emptyLogo)) {
+            gameBoard[2][0].setImage(cpuLogo);
+            checkResult(cpuLogo, "CPU");
+        } else {
+            cpuTurnMedium();
         }
     }
 
